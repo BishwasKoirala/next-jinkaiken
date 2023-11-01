@@ -17,6 +17,11 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  /* color: rgb(var(--foreground-rgb)); */
   padding: 1.5rem;
+  color: white;
+}
+
+th{
+  color: white;
 }
