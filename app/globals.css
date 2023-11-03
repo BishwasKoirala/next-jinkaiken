@@ -18,10 +18,20 @@
 
 body {
   /* color: rgb(var(--foreground-rgb)); */
+  text-align: center;
   padding: 1.5rem;
   color: white;
 }
 
 th{
   color: white;
+}
+
+@layer base {
+  h1 {
+    @apply font-extrabold text-3xl pb-6
+  }
+  li {
+    @apply p-2
+  }
 }
