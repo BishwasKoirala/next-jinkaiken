@@ -30,6 +30,7 @@ const BookRecordsPage: React.FC = () => {
   }, []);
 
   return (
+    
     <div className='m-3.5 font-light '>
       <h1 className=" text-center text-cyan-300 p-2 text-xl bg-gray-800">部内の本の貸借り記録</h1>
       <table className='table table-zebra text-left text-amber-200 '>
