@@ -33,3 +33,16 @@ export async function PUT(
 
 }
 
+export function DELETE(
+  request:NextRequest,
+  {params} : { params:{id: number}}
+) {
+  // fetch the use from db
+  // if not found the n404  error
+  if (params.id >10) 
+    return NextResponse.json({error : 'user not found'},{status: 404})
+  // otherwise delete user 
+  return NextResponse.json({});
+  // areturn 201
+}
+
