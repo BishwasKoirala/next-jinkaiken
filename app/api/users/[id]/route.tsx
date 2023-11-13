@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import schema from "../schema";
 
 interface Props {
   param : {id : number }
@@ -19,9 +20,12 @@ export async function PUT(
   {params} : { params:{id: number}}) {
   // validate requset body  
   const body = await request.json();
+  // use schema instead of if statement
+  const validation = schema.safeParse(body)
   // if invalid return 404
-  if (!body.name)
-    return NextResponse.json({ error : "Name is required"},{status : 404})
+  if (!validation.success)
+  // if invalid thed return error detected by zod
+    return NextResponse.json(validation.error.errors)
   // if valid , then fetch with given user id
   
   // if doest exist return 404
