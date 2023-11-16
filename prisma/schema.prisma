@@ -12,7 +12,7 @@ datasource db {
 
 model ClubMember {
   id           Int      @id @default(autoincrement())
-  schoolNum    Int      @unique
+  studentNum    Int      @unique
   name         String
   schoolYear   Int      
   role         String

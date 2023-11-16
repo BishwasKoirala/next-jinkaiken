@@ -4,7 +4,7 @@ export function GET(request:NextRequest) {
   return NextResponse.json([
     {
       id : 1,
-      schoolNum:2002201442,
+      studentNum:2002201442,
       name : "Bishwas Koirala",
       book : "love and war",
       renting : true,
@@ -12,7 +12,7 @@ export function GET(request:NextRequest) {
     },
     {
       id: 2,
-      schoolNum:202201442,
+      studentNum:202201442,
       name : "Bishwas Koirala",
       book : "love and war",
       renting : false,
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   
   return NextResponse.json({
     id : 10 ,
-    schoolNum : body.schoolNum,
+    studentNum : body.studentNum,
     name : body.name,
     book : body.book,
     renting : body.renting,
