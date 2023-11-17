@@ -1,18 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "../schema";
+import prisma from "@/prisma/client";
 
 interface Props {
   param : {id : number }
 }
 
-export function GET(
+export async function GET(
   request:NextRequest,
-  {params} : { params:{id: number}}) {
-    if (params.id > 10){
+  {params} : { params:{id: string}}) {
+    
+    const clubMember = await prisma.clubMember.findUnique({
+      where: { id : parseInt(params.id) }
+    });
+
+    if (!clubMember)
       return NextResponse.json({error: 'user not found'}, {status : 404})
-    } else {
-    return NextResponse.json({id :1 , name : 'mosh'})
-  }
+    
+    return NextResponse.json(clubMember)
+  
 } 
 
 export async function PUT(

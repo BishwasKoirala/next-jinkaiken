@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
-import { error } from "console";
+import prisma from "@/prisma/client";
 
-export function GET(request:NextRequest) {
-  return NextResponse.json([
-    {id : 1,name : 'Mosh'},
-    {id : 2,name : 'John'},
+ export async function GET(request:NextRequest) {
+  const clubMember = await prisma.clubMember.findMany();
 
-  ]);
+  return NextResponse.json(clubMember);
+  
 }
 
 // あえてrequest を requesrw　にしてます

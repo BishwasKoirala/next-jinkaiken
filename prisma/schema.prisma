@@ -12,9 +12,10 @@ datasource db {
 
 model ClubMember {
   id           Int      @id @default(autoincrement())
-  studentNum    Int      @unique
+  studentNum   Int      @unique
   name         String
-  schoolYear   Int      
+  jindaiMail   String   @unique
+  schoolYear   Int
   role         String
   registeredAt DateTime @default(now())
 }
