@@ -16,6 +16,6 @@ model ClubMember {
   name         String
   jindaiMail   String   @unique
   schoolYear   Int
-  role         String
+  role         String   @default("部員")
   registeredAt DateTime @default(now())
 }
