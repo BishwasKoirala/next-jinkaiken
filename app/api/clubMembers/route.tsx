@@ -17,7 +17,18 @@ export async function POST(request:NextRequest) {
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status : 400}) 
   
-  const clubMember = await prisma.clubMember.create({
+  const clubMember =  await prisma.clubMember.findUnique({
+    where : {
+      studentNum : body.studentNum ,
+      jindaiMail : body.jindaiMail,
+
+    }
+  })
+
+  if (clubMember)
+    return NextResponse.json({error : 'clubMember already exist'},{status : 404})
+
+  const newClubMember = await prisma.clubMember.create({
     data : {
       // id : but willbe deafultly auto generated
       studentNum : body.studentNum,
@@ -28,5 +39,5 @@ export async function POST(request:NextRequest) {
       
     }
   })
-  return NextResponse.json(clubMember , {status : 201});
+  return NextResponse.json(newClubMember , {status : 201});
 }
