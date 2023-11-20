@@ -20,10 +20,8 @@ export async function POST(request:NextRequest) {
   const clubMember =  await prisma.clubMember.findUnique({
     where : {
       studentNum : body.studentNum ,
-      name : body.name,
-      jindaiMail : body.jindaiMail,
-      schoolYear : body.schoolYear,
-    }
+      jindaiMail : body.jindaiMail
+    } 
   })
 
   if (clubMember)
