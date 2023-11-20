@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import schema from "../schema";
+import putSchema from "../putSchema";
 import prisma from "@/prisma/client";
+import { string } from "zod";
 
 interface Props {
   param : {id : number }
@@ -23,23 +24,31 @@ export async function GET(
 
 export async function PUT(
   request:NextRequest,
-  {params} : { params:{id: number}}) {
-  // validate requset body  
+  {params} : { params:{id: string}}
+  ) {
   const body = await request.json();
-  // use schema instead of if statement
-  const validation = schema.safeParse(body)
-  // if invalid return 404
+  const validation = putSchema.safeParse(body)
   if (!validation.success)
-  // if invalid thed return error detected by zod
     return NextResponse.json(validation.error.errors)
-  // if valid , then fetch with given user id
-  
+
+  const clubMember = await prisma.clubMember.findUnique({
+    where : {id : parseInt(params.id)}
+  });
+
   // if doest exist return 404
-  if(params.id > 10 )
-  return NextResponse.json({error: "user not found"},{status : 404})
+  if(!clubMember)
+    return NextResponse.json({error: "user not found"},{status : 404})
   // otherwise, update the userdata and return
 
-  return NextResponse.json({id :1,name :body.name})
+  const updatedClubMember =  await prisma.clubMember.update({
+    where : {id : clubMember.id},
+    data : {
+      schoolYear : body.schoolYear,
+      role : body.role
+    }
+  })
+
+  return NextResponse.json({updatedClubMember})
 
 }
 
