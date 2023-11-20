@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
 import prisma from "@/prisma/client";
 
- export async function GET(request:NextRequest) {
+export async function GET(request:NextRequest) {
   const clubMember = await prisma.clubMember.findMany();
 
   return NextResponse.json(clubMember);
