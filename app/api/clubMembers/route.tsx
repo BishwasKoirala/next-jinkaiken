@@ -19,7 +19,7 @@ export async function POST(request:NextRequest) {
   
   const clubMember =  await prisma.clubMember.findUnique({
     where : {
-      studentNum : body.studentNum ,
+      id : body.id ,
       jindaiMail : body.jindaiMail
     } 
   })
@@ -30,7 +30,7 @@ export async function POST(request:NextRequest) {
   const newClubMember = await prisma.clubMember.create({
     data : {
       // id : but willbe deafultly auto generated
-      studentNum : body.studentNum,
+      id : body.id,
       name : body.name,
       jindaiMail : body.jindaiMail,
       schoolYear : body.schoolYear,

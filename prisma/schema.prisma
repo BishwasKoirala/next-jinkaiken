@@ -11,8 +11,7 @@ datasource db {
 }
 
 model ClubMember {
-  id           Int      @id @default(autoincrement())
-  studentNum   Int      @unique
+  id           Int      @id @unique
   name         String
   jindaiMail   String   @unique
   schoolYear   Int
