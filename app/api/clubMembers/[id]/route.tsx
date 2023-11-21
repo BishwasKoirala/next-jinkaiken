@@ -52,14 +52,20 @@ export async function PUT(
 
 }
 
-export function DELETE(
+export async function DELETE(
   request:NextRequest,
-  {params} : { params:{id: number}}
+  {params} : { params:{id: string}}
 ) {
-  // fetch the use from db
-  // if not found the n404  error
-  if (params.id >10) 
+   const clubMember = await prisma.clubMember.findUnique({
+      where : {id : parseInt(params.id) }
+    })
+
+  if (!clubMember) 
     return NextResponse.json({error : 'user not found'},{status: 404})
+
+    await prisma.clubMember.delete({
+      where : { id : clubMember.id}
+    });
   // otherwise delete user 
   return NextResponse.json({});
   // areturn 201
