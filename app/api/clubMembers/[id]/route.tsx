@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import putSchema from "../putSchema";
 import prisma from "@/prisma/client";
-import { string } from "zod";
 
 interface Props {
   param : {id : number }
