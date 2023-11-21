@@ -18,17 +18,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(validation.error.errors,{status : 400});
 
     // check if the club member exist , fron clubMemberTable
-  const clubMember = await prisma.clubMember.findUnique({
+  const isClubMember = await prisma.clubMember.findUnique({
     where : {
       id : body.memberId
       // id in clubMember must match to given memberId
     }
   });
 
-  if (!clubMember)
+  if (!isClubMember)
     return NextResponse.json({error : 'you must be a club member to rent the book'});
 
-  const rentRecord = await prisma.bookRecord.create({
+  const bookRecord = await prisma.bookRecord.create({
     data : {
       bookName : body.bookName,
       memberId : body.memberId,
@@ -37,6 +37,6 @@ export async function POST(request: NextRequest) {
   })
   
   return NextResponse.json(
-   rentRecord,{status : 201}
+   bookRecord,{status : 201}
   )
 }
