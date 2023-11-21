@@ -5,7 +5,6 @@ import prisma from "@/prisma/client";
 // read the records from bookRecord Table
 export async function GET(request:NextRequest) {
   const bookRecord = await prisma.bookRecord.findMany();
-
   return NextResponse.json(bookRecord);
 }
 
