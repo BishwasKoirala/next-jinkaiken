@@ -1,10 +1,10 @@
-import {z} from 'zod';
+import {optional, z} from 'zod';
 
 const schema = z.object({
-  studentNum:z.number().min(9),
-  name : z.string().min(2),
-  book : z.string().min(3),
-  renting : z.boolean()
+  bookName : z.string(),
+  memberId : z.number(),
+  rentStatus : z.enum(['BURROW','RETURN'])
+  
 })
 
 export default schema

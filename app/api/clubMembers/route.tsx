@@ -17,7 +17,7 @@ export async function POST(request:NextRequest) {
   if (!validation.success)
     return NextResponse.json(validation.error.errors, { status : 400}) 
   
-  const clubMember =  await prisma.clubMember.findUnique({
+  const clubMember = await prisma.clubMember.findUnique({
     where : {
       id : body.id ,
       jindaiMail : body.jindaiMail

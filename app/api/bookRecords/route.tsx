@@ -1,44 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
-export function GET(request:NextRequest) {
-  return NextResponse.json([
-    {
-      id : 1,
-      studentNum:2002201442,
-      name : "Bishwas Koirala",
-      book : "love and war",
-      renting : true,
-      returnDate : undefined
-    },
-    {
-      id: 2,
-      studentNum:202201442,
-      name : "Bishwas Koirala",
-      book : "love and war",
-      renting : false,
-      returnDate : "2022-08-15"
-    }
-  ])
+import prisma from "@/prisma/client";
+
+// read the records from bookRecord Table
+export async function GET(request:NextRequest) {
+  const bookRecord = await prisma.bookRecord.findMany();
+  return NextResponse.json(bookRecord);
 }
 
+
+// post records in bookRecord table
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const validation = schema.safeParse(body);
   if (!validation.success) 
     return NextResponse.json(validation.error.errors,{status : 400});
 
-  const nowJapanTime = Date.now();
-  const JapanTime = new Date(nowJapanTime).toLocaleDateString("en-Us",{timeZone: "Asia/Tokyo"})
-  
-  return NextResponse.json({
-    id : 10 ,
-    studentNum : body.studentNum,
-    name : body.name,
-    book : body.book,
-    renting : body.renting,
-    returnDate : JapanTime
-  },{status : 201}
-  )
-  
+    // check if the club member exist , fron clubMemberTable
+  const isClubMember = await prisma.clubMember.findUnique({
+    where : {
+      id : body.memberId
+      // id in clubMember must match to given memberId
+    }
+  });
 
+  if (!isClubMember)
+    return NextResponse.json({error : 'you must be a club member to rent the book'});
+
+  const bookRecord = await prisma.bookRecord.create({
+    data : {
+      bookName : body.bookName,
+      memberId : body.memberId,
+      rentStatus : body.rentStatus
+    }
+  })
+  
+  return NextResponse.json(
+   bookRecord,{status : 201}
+  )
 }
