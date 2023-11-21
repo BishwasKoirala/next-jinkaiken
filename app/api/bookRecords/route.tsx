@@ -1,24 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
-export function GET(request:NextRequest) {
-  return NextResponse.json([
-    {
-      id : 1,
-      studentNum:2002201442,
-      name : "Bishwas Koirala",
-      book : "love and war",
-      renting : true,
-      returnDate : undefined
-    },
-    {
-      id: 2,
-      studentNum:202201442,
-      name : "Bishwas Koirala",
-      book : "love and war",
-      renting : false,
-      returnDate : "2022-08-15"
-    }
-  ])
+import prisma from "@/prisma/client";
+
+export async function GET(request:NextRequest) {
+  const bookRecords = await prisma.bookRecord.findMany();
+
+  return NextResponse.json(bookRecords);
 }
 
 export async function POST(request: NextRequest) {
