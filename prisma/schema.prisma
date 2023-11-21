@@ -18,3 +18,4 @@ model ClubMember {
   role         String   @default("部員")
   registeredAt DateTime @default(now())
 }
+
