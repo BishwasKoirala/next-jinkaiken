@@ -30,6 +30,6 @@ model BookRecord {
 }
 
 enum RentStatus {
-  RENT
-  return
+  BURROW
+  RETURN
 }

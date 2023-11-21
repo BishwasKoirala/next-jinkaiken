@@ -2,30 +2,41 @@ import { NextRequest, NextResponse } from "next/server";
 import schema from "./schema";
 import prisma from "@/prisma/client";
 
+// read the records from bookRecord Table
 export async function GET(request:NextRequest) {
-  const bookRecords = await prisma.bookRecord.findMany();
+  const bookRecord = await prisma.bookRecord.findMany();
 
-  return NextResponse.json(bookRecords);
+  return NextResponse.json(bookRecord);
 }
 
+
+// post records in bookRecord table
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const validation = schema.safeParse(body);
   if (!validation.success) 
     return NextResponse.json(validation.error.errors,{status : 400});
 
-  const nowJapanTime = Date.now();
-  const JapanTime = new Date(nowJapanTime).toLocaleDateString("en-Us",{timeZone: "Asia/Tokyo"})
-  
-  return NextResponse.json({
-    id : 10 ,
-    studentNum : body.studentNum,
-    name : body.name,
-    book : body.book,
-    renting : body.renting,
-    returnDate : JapanTime
-  },{status : 201}
-  )
-  
+    // check if the club member exist , fron clubMemberTable
+  const clubMember = await prisma.clubMember.findUnique({
+    where : {
+      id : body.memberId
+      // id in clubMember must match to given memberId
+    }
+  });
 
+  if (!clubMember)
+    return NextResponse.json({error : 'you must be a club member to rent the book'});
+
+  const rentRecord = await prisma.bookRecord.create({
+    data : {
+      bookName : body.bookName,
+      memberId : body.memberId,
+      rentStatus : body.rentStatus
+    }
+  })
+  
+  return NextResponse.json(
+   rentRecord,{status : 201}
+  )
 }
