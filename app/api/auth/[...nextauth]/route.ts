@@ -9,18 +9,20 @@ export const authOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials : {
-        studentId: {label : 'studentId',type : 'string' , placeholder: '学籍番号'},
-        password: {label:'PassWord',type: 'password',placeholder: 'Password'}
+        studentId: {label : 'studentId',type : 'string' , placeholder: 'studentId'},
+        password: {label:'password',type: 'password',placeholder: 'password'}
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials?.studentId || !credentials.password) return null
 
         const user = await prisma.user.findUnique({ where:{ studentId : credentials.studentId}})
 
         if (!user) return null
-        const passwordsMatch = await bcrypt.compare(credentials.password, user.hashedPassword!);
+        const passwordsMatch = await bcrypt.compare(credentials.password, user.password!);
+        if (!passwordsMatch) return null
 
-        return passwordsMatch? user : null;
+        return { id: user.studentId, name : user.name};
+
       },
     })
   ],
