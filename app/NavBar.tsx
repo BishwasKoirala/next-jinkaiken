@@ -14,15 +14,17 @@ const NavBar = () => {
       <Link href="./rentReturn" className='p-3  mr-1 bg-gray-700'>本の貸/返</Link>
       <Link href="./bookRecords" className='p-3 mr-1 bg-gray-700'>貸借記録</Link>
 
-      { (status === 'loading') && <>Loading...</> }
-      {status === 'authenticated' && 
+      <>{ (status === 'loading') && <>Loading...</> }</>
+      <>{status === 'authenticated' && 
         <>
         {session.user?.name}
           <Link href='/api/auth/signout' className='p-3 mr-3 bg-gray-700'>SignOut</Link>
         </>
-      }
+        }
+      </>
       
-      { status === 'unauthenticated' && <Link href="api/auth/signin" className='p-3 mr-1 bg-gray-700'>Login</Link>}
+      <>{ status === 'unauthenticated' && <Link href="api/auth/signin" className='p-3 mr-1 bg-gray-700'>Login</Link>}
+      </>
     </div>
   )
 }
