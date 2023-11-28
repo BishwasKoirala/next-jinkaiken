@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+
+
+## vercel link
+https://next-jinkaiken.vercel.app/
+
 ## Getting Started
 node v 20.9.0
 

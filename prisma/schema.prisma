@@ -10,26 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ClubMember {
-  id           Int          @id @unique //学籍番号をユーザーが手動登録
-  name         String
-  jindaiMail   String       @unique
-  schoolYear   Int
-  role         String       @default("部員")
-  registeredAt DateTime     @default(now())
-  bookRecords  BookRecord[]
-}
 
-model BookRecord {
-  id            Int        @id @default(autoincrement())
-  bookName      String
-  memberId      Int       
-  member        ClubMember @relation(fields: [memberId],references: [id])
-  rentStatus    RentStatus
-  transactionAt DateTime   @default(now())
-}
-
-enum RentStatus {
-  BURROW
-  RETURN
+model User {
+  studentId     String    @id @unique
+  name          String?
+  email         String?   @unique
+  password      String?
 }
