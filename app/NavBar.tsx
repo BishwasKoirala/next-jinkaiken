@@ -13,8 +13,14 @@ const NavBar = () => {
       
       <Link href="./rentReturn" className='p-3  mr-1 bg-gray-700'>本の貸/返</Link>
       <Link href="./bookRecords" className='p-3 mr-1 bg-gray-700'>貸借記録</Link>
-      { (status === 'loading') && <div>Loading...</div> }
-      {status === 'authenticated' && <div>{session.user?.name}</div> }
+
+      {/* { (status === 'loading') && <div>Loading...</div> } */}
+      {status === 'authenticated' && 
+        <div>{session.user?.name} 
+          <Link href='/api/auth/signout'      className='ml-3'>Sign Out</Link>
+        </div>
+      }
+      
       { status === 'unauthenticated' && <Link href="api/auth/signin" className='p-3 mr-1 bg-gray-700'>Login</Link>}
     </div>
   )

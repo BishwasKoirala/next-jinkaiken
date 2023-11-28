@@ -10,26 +10,74 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model ClubMember {
-  id           Int          @id @unique //学籍番号をユーザーが手動登録
-  name         String
-  jindaiMail   String       @unique
-  schoolYear   Int
-  role         String       @default("部員")
-  registeredAt DateTime     @default(now())
-  bookRecords  BookRecord[]
+// model ClubMember {
+//   id           Int          @id @unique //学籍番号をユーザーが手動登録
+//   name         String
+//   jindaiMail   String       @unique
+//   schoolYear   Int
+//   role         String       @default("部員")
+//   registeredAt DateTime     @default(now())
+//   bookRecords  BookRecord[]
+// }
+
+// model BookRecord {
+//   id            Int        @id @default(autoincrement())
+//   bookName      String
+//   memberId      Int       
+//   member        ClubMember @relation(fields: [memberId],references: [id])
+//   rentStatus    RentStatus
+//   transactionAt DateTime   @default(now())
+// }
+
+// enum RentStatus {
+//   BURROW
+//   RETURN
+// }
+
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
-model BookRecord {
-  id            Int        @id @default(autoincrement())
-  bookName      String
-  memberId      Int       
-  member        ClubMember @relation(fields: [memberId],references: [id])
-  rentStatus    RentStatus
-  transactionAt DateTime   @default(now())
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-enum RentStatus {
-  BURROW
-  RETURN
+model User {
+  id            String    @id @default(cuid())
+  studentId     String    @unique
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  hashedPassword String?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
