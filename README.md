@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 
 
-## vercel link
+## vercel link (brach MAIN)
 https://next-jinkaiken.vercel.app/
 
 ## Getting Started
