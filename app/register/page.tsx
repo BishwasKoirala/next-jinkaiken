@@ -1,32 +1,51 @@
 "use client";
-import { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
+interface FormData {
+  studentId: string;
+  name: string;
+  email: string;
+  password: string;
+}
 
 export default function Page() {
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const [formData, setFormData] = useState<FormData>({
+    studentId: "",
+    name: "",
+    email: "",
+    password: "",
+  });
 
-    const formData = new FormData(event.currentTarget);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     const response = await fetch("/api/register", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
 
-    // Handle response if necessary
     const data = await response.json();
-    // ...
-  }
-
+    if (response.ok) {
+      console.log("Registration successful", data);
+    } else {
+      console.log("registration failed", data);
+    }
+  };
   return (
     <div className=" align-middle ">
       {/* seted placeholder to textmiddle in global cdd */}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="studentId">学籍番号</label>
         <br />
         <input
           type="text"
-          name="studenId"
-          id="studenId"
+          name="studentId"
+          id="studentId"
           placeholder="学籍番号を入力"
+          onChange={handleChange}
           className=" "
         />
         <br />
@@ -38,6 +57,7 @@ export default function Page() {
           name="name"
           id="name"
           placeholder="なまえを入力"
+          onChange={handleChange}
           className=""
         />
         <br />
@@ -48,12 +68,17 @@ export default function Page() {
           name="email"
           id="email"
           placeholder="a112233445gx@jindai.jpの形"
+          onChange={handleChange}
         />
         <br />
         <label htmlFor="password">パスワード</label>
         <br />
-        <input type="password" name="password" id="password" />
-        
+        <input
+          type="password"
+          name="password"
+          id="password"
+          onChange={handleChange}
+        />
 
         <br />
         <br />

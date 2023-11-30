@@ -1,3 +1,5 @@
 create register form 
 
 https://chat.openai.com/share/b3208d5c-c202-4fb2-805b-2ca32b3f9249
+
+next get api for register

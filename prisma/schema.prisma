@@ -17,7 +17,7 @@ model User {
   password    String?
   registeredAt DateTime     @default(now())
   bookRecords bookRecords[] // one to many relation
-
+  
 }
 
 model bookRecords {
@@ -26,6 +26,7 @@ model bookRecords {
   name       User    @relation(fields: [studentId], references: [studentId])
   bookName   String?
   rentStatus String?
+  transactionAt DateTime @default(now())
   // ここに借りるか返すしかおくれないようにスキーマー設定したい。
 }
 
