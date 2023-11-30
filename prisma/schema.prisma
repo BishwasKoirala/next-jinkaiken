@@ -10,10 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-  studentId     String    @id @unique
-  name          String?
-  email         String?   @unique
-  password      String?
+  studentId   String        @id @unique
+  name        String?
+  email       String?       @unique
+  password    String?
+  registeredAt DateTime     @default(now())
+  bookRecords bookRecords[] // one to many relation
+
 }
+
+model bookRecords {
+  id         Int     @id @default(autoincrement())
+  studentId  String
+  name       User    @relation(fields: [studentId], references: [studentId])
+  bookName   String?
+  rentStatus String?
+  // ここに借りるか返すしかおくれないようにスキーマー設定したい。
+}
+

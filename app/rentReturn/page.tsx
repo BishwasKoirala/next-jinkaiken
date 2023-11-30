@@ -11,7 +11,15 @@ const RentReturnForm = () => {
     </div>
 
     <div>
-        なんでエラー
+      <form action="post" method="post">
+        <label htmlFor="bookName">本のタイトル</label>
+          <br/>
+          <input type="bookName" name="bookName" id="bookName" />
+        <br/><br />
+        <label htmlFor="rent?return?">拝借？返却？</label>
+          <br />
+          <select name="rent?return?" id="rent?return?"></select>
+      </form>
     </div>
     </>
 
