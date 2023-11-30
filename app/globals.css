@@ -27,6 +27,10 @@ th{
   color: white;
 }
 
+:placeholder-shown{
+  text-align: center;
+}
+
 @layer base {
   h1 {
     @apply font-extrabold text-2xl pb-6
@@ -35,3 +39,4 @@ th{
     @apply p-2
   }
 }
+
