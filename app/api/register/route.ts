@@ -45,9 +45,9 @@ export async function POST(request : NextRequest) {
     studentId : newUser.studentId,
     name : newUser.name,
     email : newUser.email,
-    gakubu:body.gakubu,
-    gakka:body.gakka,
-    phoneNum:body.phoneNum,
+    gakubu:newUser.gakubu,
+    gakka:newUser.gakka,
+    phoneNum:newUser.phoneNum,
    });
 }
 
