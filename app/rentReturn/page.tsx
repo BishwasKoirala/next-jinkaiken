@@ -7,7 +7,7 @@ interface FormData {
   rentStatus: string;
 }
 
-export const RentReturnForm = () => {
+const RentReturnForm = () => {
   const [formdata, setFormData] = useState<FormData>({
     studentId: "",
     bookName: "",
