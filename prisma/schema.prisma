@@ -25,9 +25,8 @@ model User {
 model bookRecords {
   id            Int      @id @default(autoincrement())
   studentId     String
-  name          User     @relation(fields: [studentId], references: [studentId])
   bookName      String?
   rentStatus    String?
   transactionAt DateTime @default(now())
-  // ここに借りるか返すしかおくれないようにスキーマー設定したい。
+  user          User     @relation(fields: [studentId], references: [studentId])
 }

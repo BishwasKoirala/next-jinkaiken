@@ -35,13 +35,17 @@ export async function POST(request : NextRequest) {
 export async function GET(request:NextRequest) {
   const records = await prisma.bookRecords.findMany({
     select : {
+      id : true ,
       studentId : true,
-      name : true ,
-      bookName : true ,
+      user :{
+        select : {
+          name : true
+        }
+      } ,
+      bookName : true , 
       rentStatus : true ,
       transactionAt : true ,
     }
   })
   return NextResponse.json(records)
 }
-
