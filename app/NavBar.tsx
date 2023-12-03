@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 
 const NavBar = () => {
+  
   const { status, data: session } = useSession();
   return (
     <div className=" bg-gray-500 p-3 text-lime-200 mb-5">
