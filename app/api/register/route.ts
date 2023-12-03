@@ -7,6 +7,9 @@ const schema =  z.object({
   studentId : z.string().min(9).max(9),
   name: z.string(),
   email:z.string().email(),
+  gakubu:z.string(),
+  gakka:z.string(),
+  phoneNum:z.string(),
   password : z.string().min(5)
 })
 
@@ -31,6 +34,9 @@ export async function POST(request : NextRequest) {
       studentId: body.studentId,
       name:body.name,
       email:body.email,
+      gakubu:body.gakubu,
+      gakka:body.gakka,
+      phoneNum:body.phoneNum,
       password
     }
   });
@@ -39,5 +45,24 @@ export async function POST(request : NextRequest) {
     studentId : newUser.studentId,
     name : newUser.name,
     email : newUser.email,
+    gakubu:newUser.gakubu,
+    gakka:newUser.gakka,
+    phoneNum:newUser.phoneNum,
    });
 }
+
+export async function GET(request:NextRequest) {
+  const users = await prisma.user.findMany({
+    select : {
+      studentId : true,
+      name : true ,
+      email : true ,
+      gakubu : true ,
+      gakka : true ,
+      phoneNum : true ,
+      
+    }
+  })
+  return NextResponse.json(users)
+}
+
