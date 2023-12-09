@@ -4,3 +4,11 @@
 create a nice UI for each forms
 next check deploy errors
 
+
+
+############HOTTTT######################
+api for getting bookdata
+https://www.googleapis.com/books/v1/volumes?q={q}
+
+
+

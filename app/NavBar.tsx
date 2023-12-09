@@ -7,10 +7,6 @@ import { useSession } from "next-auth/react";
 const NavBar = () => {
   
   const { status, data: session } = useSession();
-
-
-
-
   
   return (
     <div className="flex justify-center bg-gray-500">
