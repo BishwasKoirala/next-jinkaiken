@@ -12,11 +12,13 @@ export default async function Home() {
       <div className='p-4 text-2xl' >
         <div>
           <div className='  my-4 text-3xl font-bold'>
-            {session && <span className='text-blue-400'>{session.user!.name}</span>}
+            {session && <span className='text-blue-400'>{session.user!.name}さん</span>}
             {!session && <span className=' text-red-800'> Not Logged in</span>}
-            さん
+            
           </div >
-          神奈川大学会計学研究部のサイトへようこそ！
+          <div>
+            ホームメニュ
+          </div>
         </div>
 
         <LinkList/>
