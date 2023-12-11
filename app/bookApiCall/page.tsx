@@ -13,7 +13,7 @@ interface GoogleBookResponse {
 
 const page = () => {
 
-  const [bookData, setBookData] = useState<GoogleBookResponse['items'] | null>(null);
+  // const [bookData, setBookData] = useState<GoogleBookResponse['items'] | null>(null);
 
   useEffect(() => {
 
@@ -27,7 +27,7 @@ const page = () => {
 
       if (query.ok) {
         console.log('response from API' , responsedata)
-        setBookData(responsedata.items);
+        // setBookData(responsedata.items);
 
 
       } else {
