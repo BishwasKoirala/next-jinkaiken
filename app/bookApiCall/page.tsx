@@ -3,7 +3,9 @@ import React, { useEffect , useState } from 'react'
 
 interface GotBookData {
   id : string , 
-  title : string
+  title : string,
+  isbn10 : string,
+  isbn13 : string
 }
 
 
@@ -23,7 +25,9 @@ const page = () => {
 
        const catchdata : GotBookData = {
         id : responsedata.items[0].id,
-        title: responsedata.items[0].volumeInfo.title
+        title: responsedata.items[0].volumeInfo.title,
+        isbn10 : responsedata.items[0].volumeInfo.industryIdentifiers[0].identifier,
+        isbn13 : responsedata.items[0].volumeInfo.industryIdentifiers[1].identifier
       }
 
       
