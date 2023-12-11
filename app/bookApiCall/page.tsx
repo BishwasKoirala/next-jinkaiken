@@ -1,13 +1,9 @@
 'use client'
 import React, { useEffect , useState } from 'react'
 
-interface GoogleBookResponse {
-  items : Array<{
-    id : string ,
-    volumeInfo : {
-      title : string
-    }
-  }>
+interface GotBookData {
+  id : string , 
+  title : string
 }
 
 
@@ -23,11 +19,19 @@ const page = () => {
 
       try{
       const query = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${param}`)
-      const responsedata : GoogleBookResponse = await query.json()
+      const responsedata  = await query.json()
+
+       const catchdata : GotBookData = {
+        id : responsedata.items[0].id,
+        title: responsedata.items[0].volumeInfo.title
+      }
+
+      
 
       if (query.ok) {
         console.log('response from API' , responsedata)
         // setBookData(responsedata.items);
+        console.log(catchdata)
 
 
       } else {
@@ -41,10 +45,6 @@ const page = () => {
     getData()
 
   },[])
-
-
-  // console.log(setBookData)
-  // console.log(bookData)
 
   return (
     <h3>hello</h3>

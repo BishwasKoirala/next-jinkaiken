@@ -16,3 +16,4 @@ https://github.com/dashboardphilippines/react-webcam-barcode-scanner/blob/master
 
 
 
+now make a api to get book with dat page.tsx
