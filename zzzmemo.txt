@@ -11,4 +11,8 @@ api for getting bookdata
 https://www.googleapis.com/books/v1/volumes?q={q}
 
 
+##########barodereader source from github####################
+https://github.com/dashboardphilippines/react-webcam-barcode-scanner/blob/master/src/BarcodeScannerComponent.tsx
+
+
 
