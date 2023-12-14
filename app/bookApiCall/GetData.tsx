@@ -21,7 +21,7 @@ const GetData = () => {
         const query = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${param}`)
         const responsedata  = await query.json()
   
-         const catchdata : GotBookData = {
+        const catchdata : GotBookData = {
           id : responsedata.items[0].id,
           title: responsedata.items[0].volumeInfo.title,
           isbn10 : responsedata.items[0].volumeInfo.industryIdentifiers[0].identifier,
