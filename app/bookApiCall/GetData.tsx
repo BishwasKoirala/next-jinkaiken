@@ -9,14 +9,11 @@ interface GotBookData {
 }
 
 const GetData = () => {
-    // const [bookData, setBookData] = useState<GoogleBookResponse['items'] | null>(null);
+    const [bookData, setBookData] = useState<GotBookData| null>(null);
 
     useEffect(() => {
-
-      const param : string = "9784534045843"
   
-      const getData = async () => {
-  
+      const getData = async ( param : string) => {
         try{
         const query = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${param}`)
         const responsedata  = await query.json()
@@ -27,6 +24,8 @@ const GetData = () => {
           isbn10 : responsedata.items[0].volumeInfo.industryIdentifiers[0].identifier,
           isbn13 : responsedata.items[0].volumeInfo.industryIdentifiers[1].identifier
         }
+
+        setBookData(catchdata)
   
         
   
@@ -44,11 +43,22 @@ const GetData = () => {
         }
       }
   
-      getData()
+      getData("9784534045843")
   
     },[])
   return (
-    <div>GetData</div>
+    <div>
+      {bookData ? (
+        <div>
+          <h1>{bookData.title}</h1>
+          <p>ID: {bookData.id}</p>
+          <p>ISBN-10: {bookData.isbn10}</p>
+          <p>ISBN-13: {bookData.isbn13}</p>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
   )
 }
 
