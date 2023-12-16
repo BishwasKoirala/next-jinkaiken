@@ -12,23 +12,17 @@ const GetData = () => {
     const [bookData, setBookData] = useState<GotBookData| null>(null);
 
     useEffect(() => {
-  
       const getData = async ( param : string) => {
         try{
         const query = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${param}`)
         const responsedata  = await query.json()
-  
         const catchdata : GotBookData = {
           id : responsedata.items[0].id,
           title: responsedata.items[0].volumeInfo.title,
           isbn10 : responsedata.items[0].volumeInfo.industryIdentifiers[0].identifier,
           isbn13 : responsedata.items[0].volumeInfo.industryIdentifiers[1].identifier
         }
-
         setBookData(catchdata)
-  
-        
-  
         if (query.ok) {
           console.log('response from API' , responsedata)
           // setBookData(responsedata.items);

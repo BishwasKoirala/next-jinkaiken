@@ -14,15 +14,12 @@ export default async function Home() {
           <div className='  my-4 text-3xl font-bold'>
             {session && <span className='text-blue-400'>{session.user!.name}さん</span>}
             {!session && <span className=' text-red-800'> Not Logged in</span>}
-            
           </div >
           <div>
             ホームメニュ
           </div>
         </div>
-
         <LinkList/>
-        
       </div>
     </main>
   )

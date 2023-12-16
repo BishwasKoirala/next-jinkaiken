@@ -48,7 +48,7 @@ export async function POST(request : NextRequest) {
     gakubu:newUser.gakubu,
     gakka:newUser.gakka,
     phoneNum:newUser.phoneNum,
-   });
+  });
 }
 
 export async function GET(request:NextRequest) {
