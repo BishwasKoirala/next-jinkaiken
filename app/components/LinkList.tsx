@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 const LinkList = () => {
-  const [bookLinks , setBookLinks] = useState(-1)
+  // const [bookLinks , setBookLinks] = useState(-1) make code better please!!
 
   return (
     <div className="mt-3 bg-gray-800 p-4 text-white ">
