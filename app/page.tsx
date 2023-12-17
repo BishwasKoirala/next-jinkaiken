@@ -1,8 +1,6 @@
 import { getServerSession } from 'next-auth'
-import Image from 'next/image'
 import Link from 'next/link'
 import { authOptions } from './api/auth/[...nextauth]/route'
-import { Span } from 'next/dist/trace';
 import LinkList from './components/LinkList';
 
 export default async function Home() {
