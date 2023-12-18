@@ -30,3 +30,10 @@ model BookRecords {
   transactionAt DateTime @default(now())
   user          User     @relation(fields: [studentId], references: [studentId])
 }
+
+model StoreBooks {
+  id     String @id
+  title  String
+  isbn10 String
+  isbn13 String
+}
