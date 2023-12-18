@@ -35,10 +35,12 @@
 import { NextRequest } from "next/server";
 
 interface FilteredData {
+  isbn13: string
   id: string,
   title: string,
-  isbn10?: string,
-  isbn13?: string
+  authors? : string
+  authors2 : string
+  authors3 : string
 }
 
 interface IndustryIdentifiers{
@@ -62,13 +64,16 @@ export async function GET(request: NextRequest, { params }: { params: { theIsbn:
 
     const book = data.items[0];
     const filterData: FilteredData = {
+      isbn13: book.volumeInfo.industryIdentifiers.find((identifier : IndustryIdentifiers) => identifier.type === 'ISBN_13')?.identifier,
       id: book.id,
       title: book.volumeInfo.title,
-      isbn10: book.volumeInfo.industryIdentifiers.find((identifier : IndustryIdentifiers) => identifier.type === 'ISBN_10')?.identifier,
-      isbn13: book.volumeInfo.industryIdentifiers.find((identifier : IndustryIdentifiers) => identifier.type === 'ISBN_13')?.identifier
+      authors : book.volumeInfo.authors[0],
+      authors2 : book.volumeInfo.authors[1],
+      authors3 : book.volumeInfo.authors[2],
+      
     };
 
-    return new Response(JSON.stringify(filterData), {
+    return new Response(JSON.stringify(filterData ), {
       headers: {
         'Content-Type': 'application/json',
       }

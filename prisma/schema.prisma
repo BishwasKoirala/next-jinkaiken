@@ -32,8 +32,12 @@ model BookRecords {
 }
 
 model StoreBooks {
-  id     String @id
-  title  String
-  isbn10 String
-  isbn13 String
+  columnId     Int   @id @default(autoincrement())
+  isbn13       String   @unique
+  id           String   @unique
+  title        String
+  author       String
+  author2      String
+  aurhor3      String
+  registeredAt DateTime @default(now())
 }
