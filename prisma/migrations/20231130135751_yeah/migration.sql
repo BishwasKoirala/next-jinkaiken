@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "bookRecords" ADD COLUMN     "transactionAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

@@ -17,7 +17,7 @@ const RentReturnForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await fetch("/api/rentReturn", {
+    const response = await fetch("/api/registerBook", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formdata),
@@ -46,7 +46,7 @@ const RentReturnForm = () => {
             type="text"
             name="isbn13"
             id="isbn13"
-            placeholder=""
+            placeholder="12345678?"
             onChange={handleChange}
           />
           <br />
