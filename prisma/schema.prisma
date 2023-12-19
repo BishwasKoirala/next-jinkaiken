@@ -36,8 +36,8 @@ model StoreBooks {
   isbn13       String   @unique
   id           String   @unique
   title        String
-  author       String
-  author2      String
-  aurhor3      String
+  authors       String
+  // authors2      String    
+  // aurhors3      String  
   registeredAt DateTime @default(now())
 }

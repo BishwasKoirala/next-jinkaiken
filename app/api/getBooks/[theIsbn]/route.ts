@@ -39,8 +39,8 @@ interface FilteredData {
   id: string,
   title: string,
   authors? : string
-  authors2 : string
-  authors3 : string
+  // authors2? : string
+  // authors3? : string
 }
 
 interface IndustryIdentifiers{
@@ -68,8 +68,8 @@ export async function GET(request: NextRequest, { params }: { params: { theIsbn:
       id: book.id,
       title: book.volumeInfo.title,
       authors : book.volumeInfo.authors[0],
-      authors2 : book.volumeInfo.authors[1],
-      authors3 : book.volumeInfo.authors[2],
+      // authors2 : book.volumeInfo.authors[1],
+      // authors3 : book.volumeInfo.authors[2],
       
     };
 
