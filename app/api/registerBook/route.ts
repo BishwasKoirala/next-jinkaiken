@@ -28,8 +28,9 @@ export async function POST ( request : NextRequest ) {
     // post to prisma 
     const newdata = await prisma.storeBooks.create({
       data : {
-        isbn13 : gotdata.isbn13,
         id : gotdata.id,
+        isbn13 : gotdata.isbn13,
+        isbn10 : gotdata.isbn10,
         title : gotdata.title,
         authors : gotdata.authors,
       }

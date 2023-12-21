@@ -35,8 +35,9 @@
 import { NextRequest } from "next/server";
 
 interface FilteredData {
-  isbn13: string
   id: string,
+  isbn13: string
+  isbn10 : string
   title: string,
   authors? : string
   // authors2? : string
@@ -64,8 +65,9 @@ export async function GET(request: NextRequest, { params }: { params: { theIsbn:
 
     const book = data.items[0];
     const filterData: FilteredData = {
-      isbn13: book.volumeInfo.industryIdentifiers.find((identifier : IndustryIdentifiers) => identifier.type === 'ISBN_13')?.identifier,
       id: book.id,
+      isbn13: book.volumeInfo.industryIdentifiers.find((identifier : IndustryIdentifiers) => identifier.type === 'ISBN_13')?.identifier,
+      isbn10: book.volumeInfo.industryIdentifiers.find((identifier : IndustryIdentifiers) => identifier.type === 'ISBN_10')?.identifier,
       title: book.volumeInfo.title,
       authors : book.volumeInfo.authors[0],
       // authors2 : book.volumeInfo.authors[1],
