@@ -27,17 +27,19 @@ model BookRecords {
   studentId     String
   bookName      String?
   rentStatus    String?
+  // isRenting     Boolean
   transactionAt DateTime @default(now())
   user          User     @relation(fields: [studentId], references: [studentId])
 }
 
 model StoreBooks {
-  id           String   @unique @id
-  isbn13       String   
+  id           String   @id @unique
+  isbn13       String
   isbn10       String
   title        String
-  authors       String
+  authors      String
   // authors2      String    
   // aurhors3      String  
+  // isRentable    Boolean
   registeredAt DateTime @default(now())
 }
