@@ -3,7 +3,7 @@ import {z} from "zod"
 import prisma from "@/prisma/client";
 
 const schema = z.object({
-  isbn13 : z.string(),
+  isbn13 : z.string()
 })
 
 export async function POST ( request : NextRequest ) {
