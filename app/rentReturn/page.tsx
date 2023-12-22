@@ -3,6 +3,7 @@ import React, { useState, FormEvent } from "react";
 
 interface FormData {
   studentId: string;
+  isbn: string;
   bookName: string;
   rentStatus: string;
 }
@@ -10,6 +11,7 @@ interface FormData {
 const RentReturnForm = () => {
   const [formdata, setFormData] = useState<FormData>({
     studentId: "",
+    isbn:"",
     bookName: "",
     rentStatus: "",
   });
