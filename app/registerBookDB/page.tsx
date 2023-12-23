@@ -52,7 +52,7 @@ const RentReturnForm = () => {
           />
           <br />
           <br />
-          <button className="btn bg-blue-600 text-black" onClick={fetchIsbn}>検索</button>
+          {/* <button className="btn bg-blue-600 text-black" onClick={fetchIsbn}>検索</button> */}
           <br />
           <br />
           <button type="reset" className="btn bg-red-600 mr-5 text-black">
