@@ -6,6 +6,7 @@ interface FormData {
 
 }
 
+
 const RentReturnForm = () => {
   const [formdata, setFormData] = useState<FormData>({
     isbn13: "",
@@ -51,6 +52,9 @@ const RentReturnForm = () => {
           />
           <br />
           <br />
+          <button className="btn bg-blue-600 text-black" onClick={fetchIsbn}>検索</button>
+          <br />
+          <br />
           <button type="reset" className="btn bg-red-600 mr-5 text-black">
             RESET
           </button>
@@ -59,6 +63,8 @@ const RentReturnForm = () => {
           </button>
         </form>
       </div>
+
+      
     </>
   );
 };
