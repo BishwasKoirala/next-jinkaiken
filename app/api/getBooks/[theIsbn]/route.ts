@@ -34,7 +34,7 @@
 //////fixed by mr.gpt
 import { NextRequest } from "next/server";
 
-interface FilteredData {
+export interface FilteredData {
   id: string,
   isbn13: string
   isbn10 : string

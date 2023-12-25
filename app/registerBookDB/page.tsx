@@ -1,13 +1,19 @@
 "use client";
 import React, { useState, FormEvent } from "react";
+import { FilteredData } from "../api/getBooks/[theIsbn]/route";
 
 interface FormData {
   isbn13: string;
 
 }
+// interface of the api for get googlebookapi
+
 
 
 const RentReturnForm = () => {
+  const [registeredData , setRegisteredData] = useState<FilteredData | null>(null);
+
+
   const [formdata, setFormData] = useState<FormData>({
     isbn13: "",
   });
@@ -26,6 +32,8 @@ const RentReturnForm = () => {
 
     const data = await response.json();
     if (response.ok) {
+      setRegisteredData(data)
+      
       console.log("registration Success !!!", data);
     } else {
       console.log("Failed registration !!!", data);
@@ -52,9 +60,6 @@ const RentReturnForm = () => {
           />
           <br />
           <br />
-          {/* <button className="btn bg-blue-600 text-black" onClick={fetchIsbn}>検索</button> */}
-          <br />
-          <br />
           <button type="reset" className="btn bg-red-600 mr-5 text-black">
             RESET
           </button>
@@ -62,6 +67,25 @@ const RentReturnForm = () => {
             ・登録・
           </button>
         </form>
+        {registeredData ? 
+          
+          (<div className="pt-6">
+            <h1 className="text-2xl">登録した情報</h1>
+            <div>title : <span>{registeredData.title}</span> </div>
+            <div>autor : {registeredData.authors}</div>
+            <div>id : {registeredData.id}</div>
+            <div>isbn13 : {registeredData.isbn13}</div>
+            <div>isbn10 : {registeredData.isbn10}</div>
+          </div>)
+
+          :
+
+          (
+            <div className="pt-5">登録が成功したら、内容が表示されます</div>
+          )
+          
+         }
+
       </div>
 
       
