@@ -72,7 +72,7 @@ const RentReturnForm = () => {
           (<div className="pt-6">
             <h1 className="text-2xl">登録した情報</h1>
             <div>title : <span>{registeredData.title}</span> </div>
-            <div>autor : {registeredData.authors}</div>
+            <div>author : {registeredData.authors}</div>
             <div>id : {registeredData.id}</div>
             <div>isbn13 : {registeredData.isbn13}</div>
             <div>isbn10 : {registeredData.isbn10}</div>
