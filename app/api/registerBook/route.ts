@@ -22,7 +22,8 @@ export async function POST ( request : NextRequest ) {
   
     // Fetch data from the API
     // need productionmode and production mode
-    const isbnResponse = await fetch(`http://localhost:3000/api/getBooks/${isbn13}`);
+    const baseUrl = process.env.API_BASE_URL || 'http://localhost:3000'
+    const isbnResponse = await fetch(`${baseUrl}/api/googleGetBookApi/${isbn13}`);
     const gotdata = await isbnResponse.json();
 
     // post to prisma 

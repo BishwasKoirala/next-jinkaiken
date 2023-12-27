@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, FormEvent } from "react";
-import { FilteredData } from "../api/getBooks/[theIsbn]/route";
+import { FilteredData } from "../api/googleGetBookApi/[theIsbn]/route";
 
 interface FormData {
   isbn13: string;
-
 }
 // interface of the api for get googlebookapi
 
@@ -70,9 +69,9 @@ const RentReturnForm = () => {
         {registeredData ? 
           
           (<div className="pt-6">
-            <h1 className="text-2xl">登録した情報</h1>
-            <div>title : <span>{registeredData.title}</span> </div>
-            <div>author : {registeredData.authors}</div>
+            <h1 className="text-2xl">！！！登録成功！！！</h1>
+            <div>title : <span className="text-red-400">{registeredData.title}</span> </div>
+            <div>author : <span className="text-red-400">{registeredData.authors}</span></div>
             <div>id : {registeredData.id}</div>
             <div>isbn13 : {registeredData.isbn13}</div>
             <div>isbn10 : {registeredData.isbn10}</div>
