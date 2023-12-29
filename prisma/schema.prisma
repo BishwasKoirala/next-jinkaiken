@@ -34,8 +34,8 @@ model BookRecords {
 
 model StoreBooks {
   id           String   @id @unique
-  isbn13       String
-  isbn10       String
+  isbn13       String?
+  isbn10       String?
   title        String
   authors      String
   // authors2      String    

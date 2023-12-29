@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "StoreBooks" ALTER COLUMN "isbn13" DROP NOT NULL,
+ALTER COLUMN "isbn10" DROP NOT NULL;
