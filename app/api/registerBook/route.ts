@@ -25,6 +25,25 @@ export async function POST ( request : NextRequest ) {
     const baseUrl = process.env.API_BASE_URL || 'http://localhost:3000'
     const isbnResponse = await fetch(`${baseUrl}/api/googleGetBookApi/${isbn13}`);
     const gotdata = await isbnResponse.json();
+    
+    // check is the given book exist in table
+    const existing = await prisma.storeBooks.findUnique(
+      {
+        where : {
+          id : gotdata.id
+        }
+      }
+    )
+
+    if (existing) {
+      return NextResponse.json(
+        {
+          errorcode : "！既に登録されている！",
+          title : existing.title
+        },
+        
+      )
+    }
 
     // post to prisma 
     const newdata = await prisma.storeBooks.create({

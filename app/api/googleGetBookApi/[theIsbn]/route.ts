@@ -42,6 +42,7 @@ export interface FilteredData {
   authors? : string
   // authors2? : string
   // authors3? : string
+  errorcode? : string
 }
 
 interface IndustryIdentifiers{
