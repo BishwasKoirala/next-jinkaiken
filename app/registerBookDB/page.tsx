@@ -54,6 +54,7 @@ const RentReturnForm = () => {
           name="isbn13"
           id="isbn13"
           placeholder="12345678?"
+          value={formData.isbn13}
           onChange={handleChange}
         />
         <br />
