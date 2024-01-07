@@ -47,7 +47,7 @@ const Books = () => {
   };
 
   return (
-    <div className="text-gray-500 text-lg">
+    <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
       <form onSubmit={handleSubmit}>
         <div className="py-2">
