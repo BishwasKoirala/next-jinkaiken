@@ -22,11 +22,6 @@ export default function RootLayout({
     <html lang="en" data-theme="light" className="text-center">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <body className={inter.className}>
-        <header className="navbar bg-base-100">
-          <a href="/" className="btn btn-ghost text-2xl text-gray-600">
-            神奈川大学会計学研究部
-          </a>
-        </header>
         <AuthProvider>
           <NavBar />
           {children}
