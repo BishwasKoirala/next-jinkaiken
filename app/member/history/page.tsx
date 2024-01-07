@@ -1,7 +1,6 @@
 "use client";
 
-import { UnderDevelopmentAlert } from "@/app/components/UnderDevelopmentAlert";
-
+import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
 const History = () => {
   return <UnderDevelopmentAlert />;
 };
