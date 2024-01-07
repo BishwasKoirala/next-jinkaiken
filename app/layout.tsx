@@ -21,7 +21,7 @@ export default function RootLayout({
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <body className={inter.className}>
       <AuthProvider>
-      <h1>神奈川大学会計学研究部</h1>
+      <h1 className='text-2xl'>神奈川大学会計学研究部</h1>
       <NavBar/>
       {children}
       </AuthProvider>

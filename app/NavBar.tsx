@@ -3,18 +3,18 @@
 import React from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import LinkButton from "./components/LinkButton";
 
 const NavBar = () => {
   
   const { status, data: session } = useSession();
   
   return (
-    <div className="flex justify-center bg-gray-500">
+    <div className="flex justify-center bg-gray-800">
     <div className="flex justify-center items-center space-x-1 p-2 text-xl">
-      <Link href="/" className="bg-gray-700 text-white py-2 px-4 rounded-md">
+      <LinkButton href="/" intents="secondary">
         Home
-      </Link>      
-        
+      </LinkButton>  
         {status === "loading" ? 
         (<span>Loading...</span>)
         :  
@@ -23,20 +23,16 @@ const NavBar = () => {
           <span className="font-extrabold bg-gray-800 flex py-2 rounded-md px-4">
               {session.user!.name}
           </span>
-            <Link href="/api/auth/signout">
-              <div className="bg-red-500 text-white py-2 px-4 rounded-md">
-              LogOut
-              </div>
-            </Link>
+          <LinkButton href="/api/auth/signout" intents="error">
+            Logout
+          </LinkButton>
         </div>
         )
         :
         (
-          <Link href="/api/auth/signin" >
-            <div className="bg-blue-700 text-white py-2 px-4 rounded-md">
+          <LinkButton href="/api/auth/signin" intents="primary">
             Login
-            </div>
-          </Link>
+          </LinkButton>
         )
         }
     </div>
