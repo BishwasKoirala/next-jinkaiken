@@ -1,5 +1,7 @@
 "use client";
+
 import React, { useState, FormEvent } from "react";
+import { UnderDevelopmentAlert } from "@/app/components/UnderDevelopmentAlert";
 
 interface FormData {
   studentId: string;
@@ -11,12 +13,14 @@ interface FormData {
 const RentReturnForm = () => {
   const [formdata, setFormData] = useState<FormData>({
     studentId: "",
-    isbn:"",
+    isbn: "",
     bookName: "",
     rentStatus: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formdata, [e.target.name]: e.target.value });
   };
 
@@ -36,56 +40,54 @@ const RentReturnForm = () => {
     }
   };
   return (
-
-    
-    <>
-      <div className="p-4 text-xl">
-        <p>本の貸し借り登録の機能はまだ開発中です</p>
-      </div>
-
-      <div>
-        <form onSubmit={handleSubmit}>
+    <div className="grid place-items-center pb-16 text-gray-500 text-lg">
+      <UnderDevelopmentAlert />
+      <form onSubmit={handleSubmit}>
+        <div className="py-2">
           <label htmlFor="studentId">学籍番号</label>
-          <br />
           <input
-            type="text"
-            name="studentId"
             id="studentId"
-            placeholder="200000000"
+            name="studentId"
+            type="text"
+            className="input input-bordered w-full max-w-xs"
             onChange={handleChange}
           />
-          <br />
-
+        </div>
+        <div className="py-2">
           <label htmlFor="bookName">本のタイトル</label>
-          <br />
           <input
             type="text"
             name="bookName"
             id="bookName"
             placeholder="本のタイトルを入力"
+            className="input input-bordered w-full max-w-xs"
             onChange={handleChange}
           />
-          <br />
-
+        </div>
+        <div className="py-2">
           <label htmlFor="rentStatus">拝借？返却？</label>
-          <br />
-          <select name="rentStatus" id="rentStatus" value={formdata.rentStatus} onChange={handleChange}>
+          <select
+            name="rentStatus"
+            id="rentStatus"
+            value={formdata.rentStatus}
+            className="select select-bordered w-full max-w-xs"
+            onChange={handleChange}
+          >
             <option value="">借りるか返すか</option>
             <option value="借">借</option>
             <option value="返">返</option>
           </select>
-
-          <br />
-          <br />
-          <button type="reset" className="btn bg-red-600 mr-5 text-black">
-            RESET
+        </div>
+        <div className="py-4 grid grid-cols-2 gap-2">
+          <button type="reset" className="btn">
+            リセット
           </button>
-          <button type="submit" className=" text-black btn bg-green-600">
-            Submit
+          <button type="submit" className="btn btn-primary">
+            送信
           </button>
-        </form>
-      </div>
-    </>
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -12,33 +12,26 @@ const NavBar = () => {
   const searchParams = useSearchParams();
 
   return (
-    <>
-      <div className="navbar bg-base-100">
-        <a className="btn btn-ghost text-2xl text-gray-600">
-          神奈川大学会計学研究部
-        </a>
-      </div>
-      <div role="tablist" className="tabs tabs-lifted tabs-lg">
-        <a
-          href="/"
-          role="tab"
-          className={clsx("tab", {
-            "tab-active": searchParams.get("tab") !== "admin",
-          })}
-        >
-          メンバー
-        </a>
-        <a
-          href="/?tab=admin"
-          role="tab"
-          className={clsx("tab", {
-            "tab-active": searchParams.get("tab") === "admin",
-          })}
-        >
-          管理者
-        </a>
-      </div>
-    </>
+    <nav role="tablist" className="tabs tabs-lifted tabs-lg">
+      <a
+        href="/member/borrow"
+        role="tab"
+        className={clsx("tab", {
+          "tab-active": searchParams.get("tab") !== "admin",
+        })}
+      >
+        メンバー
+      </a>
+      <a
+        href="/admin/books?tab=admin"
+        role="tab"
+        className={clsx("tab", {
+          "tab-active": searchParams.get("tab") === "admin",
+        })}
+      >
+        管理者
+      </a>
+    </nav>
   );
 };
 
