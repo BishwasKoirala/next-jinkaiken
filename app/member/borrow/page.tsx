@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, FormEvent } from "react";
-import { UnderDevelopmentAlert } from "@/app/components/UnderDevelopmentAlert";
+import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
 
 interface FormData {
   studentId: string;
