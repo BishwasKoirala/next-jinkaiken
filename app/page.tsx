@@ -15,7 +15,7 @@ export default function Home() {
       window.location.href = "/member/borrow";
     }
     if (status === "unauthenticated") {
-      window.location.href = "/api/auth/signin";
+      window.location.href = "/welcome";
     }
   }, [status]);
 
