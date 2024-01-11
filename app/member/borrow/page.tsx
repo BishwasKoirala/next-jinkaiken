@@ -71,8 +71,7 @@ const RentReturnForm = () => {
             name="bookName"
             id="bookName"
             value={formdata.bookName}
-            placeholder="本のタイトルを入力"
-            className="input input-bordered w-full max-w-xs"
+            className="select select-bordered w-full max-w-xs"
             onChange={handleChange}
           >
             <option value="">本を選択</option>
