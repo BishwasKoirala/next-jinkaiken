@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
 
 interface FormData {
@@ -17,6 +17,18 @@ const RentReturnForm = () => {
     bookName: "",
     rentStatus: "",
   });
+
+    // getting booknames and use it in select optn
+    const [books , setBooks] = useState<{id :string , title : string}[]>([])
+    useEffect(() => {
+      const fetchBooks = async () => {
+        const response = await fetch('/api/frontFetch/burrowFormBookList')
+        const data = await response.json()
+        setBooks(data)
+      };
+        fetchBooks();
+      },[] )
+
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -55,14 +67,22 @@ const RentReturnForm = () => {
         </div>
         <div className="py-2">
           <label htmlFor="bookName">本のタイトル</label>
-          <input
-            type="text"
+          <select
             name="bookName"
             id="bookName"
+            value={formdata.bookName}
             placeholder="本のタイトルを入力"
             className="input input-bordered w-full max-w-xs"
             onChange={handleChange}
-          />
+          >
+            <option value="">本を選択</option>
+            {books.map(book => (
+              <option key={book.id} value={book.id}>
+                {`${book.title}`}
+              </option>
+            ))}
+          </select>
+
         </div>
         <div className="py-2">
           <label htmlFor="rentStatus">拝借？返却？</label>
