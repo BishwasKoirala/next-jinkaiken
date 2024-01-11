@@ -22,7 +22,7 @@ export default function Page() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await fetch("/api/register", {
+    const response = await fetch("/api/registerMember", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
