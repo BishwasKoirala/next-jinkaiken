@@ -10,6 +10,21 @@ interface FormData {
   rentStatus: string;
 }
 
+ // getting booknames and use it in select optn
+ const loadBooks = () =>{
+  const [books , setBooks] = useState<{id :string , title : string}[]>([])
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const response = await fetch('/api/frontFetch/burrowFormBookList')
+      const data = await response.json()
+      setBooks(data)
+    };
+      fetchBooks();
+    },[] )
+
+  return books
+}
+
 const RentReturnForm = () => {
   const [formdata, setFormData] = useState<FormData>({
     studentId: "",
@@ -18,22 +33,9 @@ const RentReturnForm = () => {
     rentStatus: "",
   });
 
-    // getting booknames and use it in select optn
-    const loadBooks = () =>{
-      const [books , setBooks] = useState<{id :string , title : string}[]>([])
-      useEffect(() => {
-        const fetchBooks = async () => {
-          const response = await fetch('/api/frontFetch/burrowFormBookList')
-          const data = await response.json()
-          setBooks(data)
-        };
-          fetchBooks();
-        },[] )
+  let test = [{id : "asf", title : "jhkadfh"},{id : 'wasdf' , title : 'hakjdshfkaj'}]
 
-      return books
-    }
-
-    const books = loadBooks()
+  const books = loadBooks()
 
 
   const handleChange = (
@@ -57,6 +59,14 @@ const RentReturnForm = () => {
       console.log("Failed registration !!!", data);
     }
   };
+
+  // load options
+  const options : JSX.Element[] = [];
+  books.forEach(book => (
+    options.push(<option key={book.id} value={book.id}> {book.title} </option>)
+  ))
+
+
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
@@ -81,9 +91,7 @@ const RentReturnForm = () => {
             onChange={handleChange}
           >
             <option>本を選択</option>
-            {books.map(book => (
-              <option key={book.id} value={book.id}>{`${book.title}`}</option>
-            ))}
+            {options}
           </select>
 
         </div>
