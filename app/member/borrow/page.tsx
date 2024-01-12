@@ -19,15 +19,21 @@ const RentReturnForm = () => {
   });
 
     // getting booknames and use it in select optn
-    const [books , setBooks] = useState<{id :string , title : string}[]>([])
-    useEffect(() => {
-      const fetchBooks = async () => {
-        const response = await fetch('/api/frontFetch/burrowFormBookList')
-        const data = await response.json()
-        setBooks(data)
-      };
-        fetchBooks();
-      },[] )
+    const loadBooks = () =>{
+      const [books , setBooks] = useState<{id :string , title : string}[]>([])
+      useEffect(() => {
+        const fetchBooks = async () => {
+          const response = await fetch('/api/frontFetch/burrowFormBookList')
+          const data = await response.json()
+          setBooks(data)
+        };
+          fetchBooks();
+        },[] )
+
+      return books
+    }
+
+    const books = loadBooks()
 
 
   const handleChange = (
@@ -71,14 +77,12 @@ const RentReturnForm = () => {
             name="bookName"
             id="bookName"
             value={formdata.bookName}
-            className="select select-bordered w-full max-w-xs"
+            className="select select-bordered w-full max-w-xs align-middle"
             onChange={handleChange}
           >
-            <option value="">本を選択</option>
+            <option>本を選択</option>
             {books.map(book => (
-              <option key={book.id} value={book.id}>
-                {`${book.title}`}
-              </option>
+              <option key={book.id} value={book.id}>{`${book.title}`}</option>
             ))}
           </select>
 
