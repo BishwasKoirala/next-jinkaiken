@@ -2,7 +2,7 @@
 
 import React, { useState, FormEvent } from "react";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
-import { loadBooks } from "./LoadBooks";
+import { LoadBooks } from "./loadBooks";
 
 interface FormData {
   studentId: string;
@@ -20,7 +20,7 @@ const RentReturnForm = () => {
   });
 
   // loads for select options booknames
-  const books = loadBooks();
+  const books = LoadBooks();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>

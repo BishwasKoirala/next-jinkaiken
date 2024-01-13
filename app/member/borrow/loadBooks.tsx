@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export const loadBooks = () => {
+export const LoadBooks = () => {
   const [books, setBooks] = useState<{ id: string; title: string }[]>([]);
   useEffect(() => {
     const fetchBooks = async () => {
