@@ -1,28 +1,14 @@
 "use client";
 
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useState, FormEvent } from "react";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import { loadBooks } from "./LoadBooks";
 
 interface FormData {
   studentId: string;
   isbn: string;
   bookName: string;
   rentStatus: string;
-}
-
- // getting booknames and use it in select optn
- const loadBooks = () =>{
-  const [books , setBooks] = useState<{id :string , title : string}[]>([])
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const response = await fetch('/api/frontFetch/burrowFormBookList')
-      const data = await response.json()
-      setBooks(data)
-    };
-      fetchBooks();
-    },[] )
-
-  return books
 }
 
 const RentReturnForm = () => {
@@ -33,10 +19,8 @@ const RentReturnForm = () => {
     rentStatus: "",
   });
 
-  let test = [{id : "asf", title : "jhkadfh"},{id : 'wasdf' , title : 'hakjdshfkaj'}]
-
-  const books = loadBooks()
-
+  // loads for select options booknames
+  const books = loadBooks();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -61,11 +45,14 @@ const RentReturnForm = () => {
   };
 
   // load options to render as select book to rent
-  const options : JSX.Element[] = [];
-  books.forEach(book => (
-    options.push(<option key={book.id} value={book.id}> {book.title} </option>)
-  ))
-
+  const options: JSX.Element[] = [];
+  books.forEach((book) =>
+    options.push(
+      <option key={book.id} value={book.id}>
+        {book.title}
+      </option>
+    )
+  );
 
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
@@ -93,7 +80,6 @@ const RentReturnForm = () => {
             <option>本を選択</option>
             {options}
           </select>
-
         </div>
         <div className="py-2">
           <label htmlFor="rentStatus">拝借？返却？</label>
