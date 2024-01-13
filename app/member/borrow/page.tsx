@@ -60,7 +60,7 @@ const RentReturnForm = () => {
     }
   };
 
-  // load options
+  // load options to render as select book to rent
   const options : JSX.Element[] = [];
   books.forEach(book => (
     options.push(<option key={book.id} value={book.id}> {book.title} </option>)
