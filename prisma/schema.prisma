@@ -40,10 +40,9 @@ model BookRecords {
   id           Int        @id @default(autoincrement())
   studentId    String
   bookId       String
-  rentStatus   String?
   burrowDate   DateTime   @default(now())
   returned     Boolean    @default(false)
-  returnedDate DateTime
+  returnedDate DateTime?  
   user         User       @relation(fields: [studentId], references: [studentId])
   storeBooks   StoreBooks @relation(fields: [bookId], references: [id])
 }

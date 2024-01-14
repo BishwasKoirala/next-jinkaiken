@@ -30,7 +30,7 @@ const RentReturnForm = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const response = await fetch("/api/rentReturn", {
+    const response = await fetch("/api/bookTransaction/burrow", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formdata),
