@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt'
 // 
 const schema =  z.object({
   studentId : z.string().min(9).max(9),
-  bookId : z.string(),
+  bookId : z.string()
   // returnedDate : z.null()
 })
 
