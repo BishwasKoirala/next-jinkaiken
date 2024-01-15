@@ -19,7 +19,7 @@ model User {
   phoneNum     String
   password     String?
   isAdmin      Boolean       @default(false)
-  registeredAt DateTime      @default(now())
+  registered_at DateTime      @default(now())
   bookRecords  BookRecords[] // one to many relation
 }
 
@@ -32,7 +32,7 @@ model StoreBooks {
   // authors2      String    
   // aurhors3      String  
   rentable     Boolean       @default(true)
-  registeredAt DateTime      @default(now())
+  registered_at DateTime      @default(now())
   bookRecords  BookRecords[]
 }
 
@@ -40,9 +40,9 @@ model BookRecords {
   id           Int        @id @default(autoincrement())
   studentId    String
   bookId       String
-  burrowDate   DateTime   @default(now())
+  burrowed_at   DateTime   
   returned     Boolean    @default(false)
-  returnedDate DateTime?  
+  returned_at DateTime?  
   user         User       @relation(fields: [studentId], references: [studentId])
   storeBooks   StoreBooks @relation(fields: [bookId], references: [id])
 }

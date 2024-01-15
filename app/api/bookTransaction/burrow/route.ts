@@ -3,13 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from 'bcrypt'
 
+// api components inport
+import  jpDate  from "../../apiComponents/jpDate";
+
 
 // studentId and bookId is enough to burrow
 // 
 const schema =  z.object({
   studentId : z.string().min(9).max(9),
   bookId : z.string()
-  // returnedDate : z.null()
+  // returned_at : z.null()
 })
 
 export async function POST(request : NextRequest) {
@@ -19,16 +22,22 @@ export async function POST(request : NextRequest) {
   if (!validation.success)
     return NextResponse.json(validation.error.errors , {status:400});
 
+  // make date of japan
+  const nowjpDate = jpDate()
+  
+    
   const record = await prisma.bookRecords.create({
     data: {
       studentId: body.studentId,
       bookId: body.bookId,
+      burrowed_at: new Date(nowjpDate)
     }
-  });
+  });  
 
   return NextResponse.json({
     studentId : record.studentId,
     bookId:record.bookId,
+    burrowed_at: record.burrowed_at
    });
 }
 
@@ -38,9 +47,9 @@ export async function GET(request:NextRequest) {
       id : true ,
       studentId : true,
       bookId : true,
-      burrowDate : true,
+      burrowed_at : true,
       returned : true,
-      returnedDate : true,
+      returned_at : true,
 
     }
   })

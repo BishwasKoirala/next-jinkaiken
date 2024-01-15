@@ -21,7 +21,7 @@ export async function PUT(request : NextRequest , {params} : {params : {id : str
     where : {id : record.id},
     data : {
       returned : true,
-      returnedDate : new Date()
+      returned_at : new Date()
     }
   })
 
