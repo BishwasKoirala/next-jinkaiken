@@ -18,28 +18,31 @@ model User {
   gakka        String
   phoneNum     String
   password     String?
+  isAdmin      Boolean       @default(false)
   registeredAt DateTime      @default(now())
   bookRecords  BookRecords[] // one to many relation
 }
 
-model BookRecords {
-  id            Int      @id @default(autoincrement())
-  studentId     String
-  bookName      String?
-  rentStatus    String?
-  // isRenting     Boolean
-  transactionAt DateTime @default(now())
-  user          User     @relation(fields: [studentId], references: [studentId])
-}
-
 model StoreBooks {
-  id           String   @id @unique
+  id           String        @id @unique
   isbn13       String?
   isbn10       String?
   title        String
   authors      String
   // authors2      String    
   // aurhors3      String  
-  // isRentable    Boolean
-  registeredAt DateTime @default(now())
+  rentable     Boolean       @default(true)
+  registeredAt DateTime      @default(now())
+  bookRecords  BookRecords[]
+}
+
+model BookRecords {
+  id           Int        @id @default(autoincrement())
+  studentId    String
+  bookId       String
+  burrowDate   DateTime   @default(now())
+  returned     Boolean    @default(false)
+  returnedDate DateTime?  
+  user         User       @relation(fields: [studentId], references: [studentId])
+  storeBooks   StoreBooks @relation(fields: [bookId], references: [id])
 }

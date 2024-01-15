@@ -3,11 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from 'bcrypt'
 
+
+// studentId and bookId is enough to burrow
+// 
 const schema =  z.object({
   studentId : z.string().min(9).max(9),
-  bookName : z.string(),
-  rentStatus : z.string().nonempty()
-  
+  bookId : z.string()
+  // returnedDate : z.null()
 })
 
 export async function POST(request : NextRequest) {
@@ -20,15 +22,13 @@ export async function POST(request : NextRequest) {
   const record = await prisma.bookRecords.create({
     data: {
       studentId: body.studentId,
-      bookName: body.bookName,
-      rentStatus : body.rentStatus
+      bookId: body.bookId,
     }
   });
 
   return NextResponse.json({
     studentId : record.studentId,
-    bookName:record.bookName,
-    rentStatus : record.rentStatus
+    bookId:record.bookId,
    });
 }
 
@@ -37,14 +37,11 @@ export async function GET(request:NextRequest) {
     select : {
       id : true ,
       studentId : true,
-      user :{
-        select : {
-          name : true
-        }
-      } ,
-      bookName : true , 
-      rentStatus : true ,
-      transactionAt : true ,
+      bookId : true,
+      burrowDate : true,
+      returned : true,
+      returnedDate : true,
+
     }
   })
   return NextResponse.json(records)
