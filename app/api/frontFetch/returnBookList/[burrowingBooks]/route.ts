@@ -2,7 +2,7 @@
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-
+// fetches books that a user has rented
 export async function GET(request : NextRequest , {params} : {params : {id : string}}) {
   const records = await prisma.bookRecords.findMany({
     // studentId is string here
