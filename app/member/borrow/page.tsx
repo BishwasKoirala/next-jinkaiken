@@ -46,7 +46,7 @@ const books = LoadBooks();
   const options: JSX.Element[] = [];
   books.forEach((book) =>
     options.push(
-      <option key={book.id} value={book.id}>
+      <option className="w-2" key={book.id} value={book.id}>
         {book.title}
       </option>
     )
@@ -68,6 +68,7 @@ const books = LoadBooks();
         </div>
         <div className="py-2">
           <label htmlFor="bookName">本のタイトル</label>
+          <br />
           <select
             name="bookId"
             id="BookId"

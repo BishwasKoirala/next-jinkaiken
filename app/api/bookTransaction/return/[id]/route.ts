@@ -3,12 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { error } from "console";
 
-export async function PUT(request : NextRequest , {params} : {params : {id : string}}) {
-  // const body = await request.json();
-  // const validation = schema.safeParse(body)
 
-  // if (!validation.success)
-  //   return NextResponse.json(validation.error.errors, {status : 400})
+// the id here is : id row of bookRecords Table
+export async function PUT(request : NextRequest , {params} : {params : {id : string}}) {
 
   const record = await prisma.bookRecords.findUnique({
     where : {id : parseInt(params.id)}
