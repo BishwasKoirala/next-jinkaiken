@@ -11,7 +11,13 @@ export async function GET(request : NextRequest , {params} : {params : {id : str
       id : true,
       studentId : true,
       bookId : true,
-      burrowed_at : true
+      returned : true,
+      burrowed_at : true,
+      storeBooks : {
+        select : {
+          title : true
+        }
+      }
 
     }
   })
@@ -19,5 +25,15 @@ export async function GET(request : NextRequest , {params} : {params : {id : str
   if (!records)
     return NextResponse.json({error : 'record not found'} , {status : 404})
 
-  return NextResponse.json(records)
+  const modifiedRecords = records.map(record => ({
+    id : record.id ,
+    studentId : record.studentId,
+    bookId : record.bookId,
+    burrowed_at : record.burrowed_at,
+    bookTitle : record.storeBooks.title,
+    // 無理やりなう
+    returned : "false"
+  }))
+  
+  return NextResponse.json(modifiedRecords)
 }

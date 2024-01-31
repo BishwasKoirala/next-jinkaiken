@@ -5,14 +5,17 @@ interface Books {
   id: number;
   studentId: string;
   bookId: string;
-  returned_at: Date;
+  burrowed_at: Date;
+  bookTitle: string;
+  // think smth better than any
+  returned: any;
 }
 
 interface Props {
-  studentId : string
+  studentId: string;
 }
 
- const LoadBurrows = ({studentId} : Props) => {
+const LoadBurrows = ({ studentId }: Props) => {
   const [books, setBooks] = useState<Books[]>([]);
   useEffect(() => {
     const fetchBooks = async () => {
@@ -26,13 +29,65 @@ interface Props {
     fetchBooks();
   }, []);
 
+  const handleReturn = async (id: number) => {
+    const stringId = id.toString();
+    // put req to return
+    // sets {returned : true} in BookRecords
+    const response = await fetch(`/api/bookTransaction/return/${stringId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      alert("error");
+    } else {
+      const updatedBooks = books.map((book) =>
+        book.id === id ? { ...book, returned: "True" } : book
+      );
+      setBooks(updatedBooks)
+    }
+  };
+
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
-      {books.map((book) => (
-        <p key={book.id}>{book.id}</p>
-      ))}
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Student ID</th>
+            <th>Book ID</th>
+            <th>Borrowed At</th>
+            <th>Book Title</th>
+            <th>returned?</th>
+            {/* <th>.....</th> */}
+          </tr>
+        </thead>
+        <tbody>
+          {books.map((book) => (
+            <tr key={book.id}>
+              <td>{book.id}</td>
+              <td>{book.studentId}</td>
+              <td>{book.bookId}</td>
+              <td>{new Date(book.burrowed_at).toLocaleDateString()}</td>
+              <td>{book.bookTitle}</td>
+              <td>{book.returned}</td>
+
+              <td>
+                <button
+                  className="btn bg-blue-400"
+                  onClick={() => handleReturn(book.id)}
+                >
+                  return
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default LoadBurrows
+export default LoadBurrows;
