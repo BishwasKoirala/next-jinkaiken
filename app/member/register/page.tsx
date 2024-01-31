@@ -53,6 +53,7 @@ export default function Page() {
         </div>
         <div className="py-2">
           <label htmlFor="name">名前</label>
+          <br />
           <input
             id="name"
             name="name"
@@ -74,6 +75,7 @@ export default function Page() {
         </div>
         <div className="py-2">
           <label htmlFor="gakubu">学部</label>
+          <br />
           <input
             id="gakubu"
             name="gakubu"
@@ -85,6 +87,7 @@ export default function Page() {
         </div>
         <div className="py-2">
           <label htmlFor="gakka">学科</label>
+          <br />
           <input
             id="gakka"
             name="gakka"

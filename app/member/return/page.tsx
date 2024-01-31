@@ -1,6 +1,6 @@
 "use client";
-
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import LoadBurrows from "./loadBurrows";
 // get the rented books of the student from StudentId
 
 // load the books on the screen
@@ -12,7 +12,12 @@ interface FormData{
   bookId : string
 }
 const Return = () => {
-  return <UnderDevelopmentAlert />;
+  return (
+    <div>
+      <UnderDevelopmentAlert />
+      <LoadBurrows studentId="202201442"/>
+    </div>
+  )
 
 };
 
