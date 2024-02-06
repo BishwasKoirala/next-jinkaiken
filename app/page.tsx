@@ -11,7 +11,6 @@ export default function Home() {
    * Redirect to /api/auth/signin if unauthenticated
    */
 
-  while (status) {
     useEffect(() => {
       if (status === "authenticated") {
         window.location.href = "/member/borrow";
@@ -22,6 +21,5 @@ export default function Home() {
     }, [status]);
   
     return <main className="text-center"></main>;
-  }
   
 }
