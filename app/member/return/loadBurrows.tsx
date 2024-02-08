@@ -7,8 +7,8 @@ interface Books {
   bookId: string;
   burrowed_at: Date;
   bookTitle: string;
-  // think smth better than any
-  returned: any;
+  // think smth better than string 
+  returned: string;
 }
 
 interface Props {
@@ -46,30 +46,32 @@ const LoadBurrows = ({ studentId }: Props) => {
       const updatedBooks = books.map((book) =>
         book.id === id ? { ...book, returned: "True" } : book
       );
-      setBooks(updatedBooks)
+      setBooks(updatedBooks);
     }
   };
+  if (books.length === 0)
+    return <div className="text-black">no rented books now</div>;
 
   return (
-    <div className="grid place-items-center pb-16 text-gray-500 text-lg">
+    <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra">
       <table>
-        <thead>
+        <thead className="text-lg">
           <tr>
-            <th>ID</th>
-            <th>Student ID</th>
-            <th>Book ID</th>
-            <th>Borrowed At</th>
-            <th>Book Title</th>
-            <th>returned?</th>
+            {/* <th>ID</th> */}
+            {/* <th className="text-black">Student ID</th> */}
+            {/* <th>Book ID</th> */}
+            <th className="text-black">Borrowed At</th>
+            <th className="text-black">Book Title</th>
+            <th className="text-black">returned?</th>
             {/* <th>.....</th> */}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="table-auto table-row-group">
           {books.map((book) => (
             <tr key={book.id}>
-              <td>{book.id}</td>
-              <td>{book.studentId}</td>
-              <td>{book.bookId}</td>
+              {/* <td>{book.id}</td> */}
+              {/* <td>{book.studentId}</td> */}
+              {/* <td>{book.bookId}</td> */}
               <td>{new Date(book.burrowed_at).toLocaleDateString()}</td>
               <td>{book.bookTitle}</td>
               <td>{book.returned}</td>
