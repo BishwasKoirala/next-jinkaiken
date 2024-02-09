@@ -7,7 +7,7 @@ interface Books {
   bookId: string;
   burrowed_at: Date;
   bookTitle: string;
-  // think smth better than string 
+  // think smth better than string
   returned: string;
 }
 
@@ -17,17 +17,22 @@ interface Props {
 
 const LoadBurrows = ({ studentId }: Props) => {
   const [books, setBooks] = useState<Books[]>([]);
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const response = await fetch(
-        "/api/frontFetch/returnBookList/" + studentId
-      );
-      const data = await response.json();
-      setBooks(data);
-      console.log("data", data);
-    };
-    fetchBooks();
-  }, []);
+
+  if (studentId) {
+    useEffect(() => {
+      const fetchBooks = async () => {
+        const response = await fetch(
+          `/api/frontFetch/returnBookList/${studentId}`
+        );
+        const data = await response.json();
+        setBooks(data);
+        console.log("data", data);
+      };
+      if (studentId) {
+        fetchBooks();
+      }
+    }, [studentId]);
+  }
 
   const handleReturn = async (id: number) => {
     const stringId = id.toString();
