@@ -19,23 +19,26 @@ const Return = () => {
     e.preventDefault();
     const id = studentIdRef.current?.value;
     if (id) {
-      setStudentId(id)
+      setStudentId(id);
       setLoadBooks(true);
     }
-
   };
 
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
       <form onSubmit={handleSubmit}>
-        <label htmlFor="studenId">studenId</label>
+        <label htmlFor="studenId" className="label-text text-xl">
+          studentId
+        </label>
+        <br />
         <input
           ref={studentIdRef}
           className="input input-bordered w-full max-w-xs"
           type="text"
         />
-        <button type="submit" className="btn bg-blue-400">
+        <br />
+        <button type="submit" className="btn bg-blue-400 m-3">
           Load
         </button>
       </form>
