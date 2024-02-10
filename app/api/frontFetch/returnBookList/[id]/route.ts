@@ -1,4 +1,4 @@
-// fetch
+// fetch burrows of certain student
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
