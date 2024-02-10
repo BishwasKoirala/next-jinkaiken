@@ -18,7 +18,7 @@ interface Props {
 const LoadBurrows = ({ studentId }: Props) => {
   const [books, setBooks] = useState<Books[]>([]);
 
-  if (studentId) {
+  
     useEffect(() => {
       const fetchBooks = async () => {
         const response = await fetch(
@@ -32,7 +32,7 @@ const LoadBurrows = ({ studentId }: Props) => {
         fetchBooks();
       }
     }, [studentId]);
-  }
+  
 
   const handleReturn = async (id: number) => {
     const stringId = id.toString();
