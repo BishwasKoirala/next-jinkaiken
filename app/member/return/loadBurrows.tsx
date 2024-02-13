@@ -18,21 +18,21 @@ interface Props {
 const LoadBurrows = ({ studentId }: Props) => {
   const [books, setBooks] = useState<Books[]>([]);
 
-  
-    useEffect(() => {
-      const fetchBooks = async () => {
-        const response = await fetch(
-          `/api/bookTransaction/loadBurrows/${studentId}`
-        );
-        const data = await response.json();
-        setBooks(data);
-        console.log("data", data);
-      };
-      if (studentId) {
-        fetchBooks();
-      }
-    }, [studentId]);
-  
+  // fetch burrowing book and set it
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const response = await fetch(
+        `/api/bookTransaction/loadBurrows/${studentId}`
+      );
+      const data = await response.json();
+      setBooks(data);
+      console.log("data", data);
+    };
+    if (studentId) {
+      fetchBooks();
+    }
+  }, [studentId]);
 
   const handleReturn = async (id: number) => {
     const stringId = id.toString();
