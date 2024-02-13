@@ -22,7 +22,7 @@ const LoadBurrows = ({ studentId }: Props) => {
     useEffect(() => {
       const fetchBooks = async () => {
         const response = await fetch(
-          `/api/frontFetch/returnBookList/${studentId}`
+          `/api/bookTransaction/loadBurrows/${studentId}`
         );
         const data = await response.json();
         setBooks(data);
