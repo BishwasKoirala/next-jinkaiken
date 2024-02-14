@@ -58,11 +58,11 @@ const LoadBurrows = ({ studentId }: Props) => {
     return <div className="text-black">no rented books now</div>;
 
   return (
-    <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra">
+    <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra overflow-x-auto">
       <table>
         <thead className="text-lg">
           <tr>
-            {/* <th>ID</th> */}
+            <th className="text-black">ID</th>
             {/* <th className="text-black">Student ID</th> */}
             {/* <th>Book ID</th> */}
             <th className="text-black">Borrowed At</th>
@@ -74,7 +74,7 @@ const LoadBurrows = ({ studentId }: Props) => {
         <tbody className="table-auto table-row-group">
           {books.map((book) => (
             <tr key={book.id}>
-              {/* <td>{book.id}</td> */}
+              <td>{book.id}</td>
               {/* <td>{book.studentId}</td> */}
               {/* <td>{book.bookId}</td> */}
               <td>{new Date(book.burrowed_at).toLocaleDateString()}</td>
