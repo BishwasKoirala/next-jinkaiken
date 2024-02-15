@@ -1,3 +1,4 @@
+import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 // registered Books in recent order
 export async function GET(request: NextRequest) {
