@@ -1,13 +1,3 @@
 next I have to fix this bug 
 
-bookName
-: 
-"R9ZBzQEACAAJ"
-rentStatus
-: 
-"返"
-studentId
-: 
-"202201442"
 
-while sending form , I need to fix this and send what are needed
