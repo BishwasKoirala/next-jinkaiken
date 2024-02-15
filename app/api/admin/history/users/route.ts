@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
+//  user registered access history in recent order
 export async function GET(request: NextRequest) {
   const response = await prisma?.user.findMany({
     select: {
