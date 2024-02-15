@@ -55,7 +55,7 @@ const LoadBurrows = ({ studentId }: Props) => {
     }
   };
   if (books.length === 0)
-    return <div className="text-black">no rented books now</div>;
+    return <div className="text-black">No Burrowing Books</div>;
 
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra overflow-x-auto">

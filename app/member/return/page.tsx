@@ -17,9 +17,9 @@ const Return = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const id = studentIdRef.current?.value;
-    if (id) {
-      setStudentId(id);
+    const gotStudentId = studentIdRef.current?.value;
+    if (gotStudentId) {
+      setStudentId(gotStudentId);
       setLoadBooks(true);
     }
   };
