@@ -7,7 +7,7 @@ interface Users {
   gakubu: string;
   gakka: string;
   phoneNum: string;
-  isAdmin: string;
+  isAdmin: boolean;
   registered_at: string;
 }
 
@@ -34,7 +34,7 @@ const RegisteredUsers = () => {
   return (
     <div>
       <br />
-      <div className="text-2xl text-black">ユーザー登録履歴</div>
+      <div className="text-2xl text-black">ユーザー登録ログ</div>
       <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra overflow-x-auto border">
         <table>
           <thead className="text-lg">

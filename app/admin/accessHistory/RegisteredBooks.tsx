@@ -6,7 +6,7 @@ interface Books {
   isbn10: null;
   title: string;
   authors: string;
-  rentable: string;
+  rentable: boolean;
   registered_at: string;
 }
 
@@ -36,7 +36,7 @@ const RegisteredBooks = () => {
   return (
     <div>
       <br />
-      <div className="text-2xl text-black">書籍登録履歴</div>
+      <div className="text-2xl text-black">書籍登録ログ</div>
       <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra overflow-x-auto border">
         <table>
           <thead className="text-lg">
