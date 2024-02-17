@@ -6,6 +6,11 @@ export async function GET(request: NextRequest) {
     select: {
       id: true,
       studentId: true,
+      user : {
+        select : {
+          name : true
+        }
+      },
       storeBooks: {
         select: {
           title: true,
@@ -25,10 +30,11 @@ export async function GET(request: NextRequest) {
 
   const filteredResponse = response.map((response) => ({
     id: response.id,
-    studenId: response.studentId,
+    studentId: response.studentId,
+    studentName : response.user.name,
     book: response.storeBooks.title,
     returned: response.returned,
-    brrowed_at: response.burrowed_at,
+    burrowed_at: response.burrowed_at,
     returned_at: response.returned_at,
   }));
 
