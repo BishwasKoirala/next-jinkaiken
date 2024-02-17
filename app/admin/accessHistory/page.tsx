@@ -1,13 +1,15 @@
-'use client'
+"use client";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
 import React from "react";
-import BookRegisters from "./BookRegisters";
+import RegisteredBooks from "./RegisteredBooks";
+import RegisteredUsers from "./RegisteredUsers";
 
 const page = () => {
   return (
     <div>
       <UnderDevelopmentAlert />
-      <BookRegisters />
+      < RegisteredBooks/>
+      < RegisteredUsers />
     </div>
   );
 };
