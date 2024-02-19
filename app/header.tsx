@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { FaHome } from "react-icons/fa";
 
 export default function Header() {
   return (
-    <div className="navbar bg-base-100 text-gray-500">
+    <div className="navbar bg-base-100 text-gray-700 link-primary">
       <div className="flex-1">
         <a href="/" className="text-xl font-semibold">
-          神奈川大学会計学研究部
+          神奈川大学会計学研究部 <span className="text-sky-800">🏠︎Home</span>
         </a>
       </div>
       <div className="dropdown dropdown-end">
