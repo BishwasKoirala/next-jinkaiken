@@ -7,28 +7,28 @@ import { FieldValues, FormState, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  studentId : z.string().min(9,{message : "mest be 9 digits"}).max(9 , {message : "must be 9 digits"})
-})
+  studentId: z
+    .string()
+    .min(9, { message: "mest be 9 digits" })
+    .max(9, { message: "must be 9 digits" }),
+});
 
-type FormData = z.infer<typeof schema>
+type FormData = z.infer<typeof schema>;
 
 const History = () => {
-
-  const {register , handleSubmit , formState : {errors}} = useForm<FormData>({
-    resolver : zodResolver(schema)
-  })
-
-
-
-  const studentIdRef = useRef<HTMLInputElement>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
   const [studentIdInput, setStudentIdInput] = useState<string>("");
   const [loadHistory, setLoadHistory] = useState<boolean>(false);
 
   const onSubmit = (FormData: FieldValues) => {
-    
-      setStudentIdInput(FormData.studentId);
-      setLoadHistory(true)
-    
+    setStudentIdInput(FormData.studentId);
+    setLoadHistory(true);
   };
 
   return (
@@ -39,9 +39,11 @@ const History = () => {
           studentId
         </label>
         <br />
-        {errors.studentId && ( <p className="text-red-500">{errors.studentId.message}</p> )}
+        {errors.studentId && (
+          <p className="text-red-500">{errors.studentId.message}</p>
+        )}
         <input
-          {...register('studentId')}
+          {...register("studentId")}
           className="input input-bordered w-full max-w-xs"
           type="text"
         />
