@@ -37,7 +37,7 @@ const Return = () => {
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="studenId" className="label-text text-xl">
+        <label htmlFor="studentId" className="label-text text-xl">
           studentId
         </label>
         <br />

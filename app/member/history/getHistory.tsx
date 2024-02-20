@@ -38,7 +38,7 @@ const GetHistory = ({ studentId }: Props) => {
   }, [studentId]);
 
   if (history.length === 0) {
-    return <div className="text-black">No History</div>
+    return <div className="text-black alert bg-green-300">No History</div>
   }
 
 

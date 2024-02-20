@@ -49,13 +49,13 @@ const LoadBurrows = ({ studentId }: Props) => {
       alert("error");
     } else {
       const updatedBooks = books.map((book) =>
-        book.id === id ? { ...book, returned: "True" } : book
+        book.id === id ? { ...book, returned: "✔" } : book
       );
       setBooks(updatedBooks);
     }
   };
   if (books.length === 0)
-    return <div className="text-black">No Burrowing Books</div>;
+    return <div className="alert bg-green-500 text-black ">No Burrowing Books</div>;
 
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra overflow-x-auto">
@@ -92,6 +92,9 @@ const LoadBurrows = ({ studentId }: Props) => {
             </tr>
           ))}
         </tbody>
+        {books.length === 0 && (
+          <div className="alert bg-red-300">No Books to Return</div>
+        )}
       </table>
     </div>
   );

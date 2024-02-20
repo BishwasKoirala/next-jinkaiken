@@ -12,7 +12,7 @@ const schema = z.object({
     .string()
     .min(9)
     .max(9, { message: "student ID must be 9 digits" }),
-  bookId: z.string().min(1, {message : "select a book"}),
+  bookId: z.string().min(1, { message: "select a book" }),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -23,8 +23,11 @@ const RentReturnForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({resolver : zodResolver(schema) })
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const [registrationData, setRegistrationData] = useState<FormData | null>(
+    null
+  );
   // loads for select options booknames
   const books = LoadBooks();
 
@@ -44,10 +47,12 @@ const RentReturnForm = () => {
     const data = await response.json();
     if (response.ok) {
       console.log("registration Success !!!", data);
+      setRegistrationData(data);
     } else {
       console.log("Failed registration !!!", data);
     }
   };
+  console.log(registrationData);
 
   // load options to render as select book to rent
   const options: JSX.Element[] = [];
@@ -59,9 +64,19 @@ const RentReturnForm = () => {
     )
   );
 
+  const theBurrowedBook = registrationData
+    ? books.find((book) => book.id === registrationData.bookId)
+    : null;
+
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
+          {theBurrowedBook && (
+            <div className=" justify-center alert my-2 text-gray-600 text-lg bg-green-200">
+              <div className="text-blue-600">本を借りました</div>
+              <div className="text-black">{theBurrowedBook.title}</div>
+            </div>
+          )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="py-2">
           <label htmlFor="studentId">学籍番号</label>
