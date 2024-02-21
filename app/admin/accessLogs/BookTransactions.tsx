@@ -16,7 +16,7 @@ const BookTransactions = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/admin/accessHistory/transactions"
+        "/api/admin/accessHistory/transactions"
       );
 
       const data = await response.json();

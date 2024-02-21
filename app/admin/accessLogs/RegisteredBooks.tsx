@@ -16,7 +16,7 @@ const RegisteredBooks = () => {
   useEffect(() => {
     const fetchRegisteredBooks = async () => {
       const response = await fetch(
-        "http://localhost:3000/api/admin/accessHistory/registeredBooks"
+        "/api/admin/accessHistory/registeredBooks"
       );
 
       const data = await response.json();
