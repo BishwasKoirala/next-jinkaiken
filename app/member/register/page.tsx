@@ -7,13 +7,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema =  z.object({
-  studentId : z.string().min(9).max(9),
+  studentId : z.string().min(9 , {message : "9桁で入力してください"}).max(9,{message : "9桁で入力してください"}),
   name: z.string(),
-  email:z.string().email().endsWith('@jindai.jp', {message : " @jindai.jp の形にしてください"}),
+  email:z.string().email({message : '@jindai.jp の形にしてください'}).endsWith('@jindai.jp', {message : " @jindai.jp の形にしてください"}),
   gakubu:z.string(),
   gakka:z.string(),
-  phoneNum:z.string().min(11).max(11),
-  password : z.string().min(5)
+  phoneNum:z.string().min(11,{message : '11桁の数字を入力してください'}).max(11,{message : '11桁の数字を入力してください'}),
+  password : z.string().min(5 , {message : '5文字以上'} )
 }) 
 
 type FormData = z.infer<typeof schema>

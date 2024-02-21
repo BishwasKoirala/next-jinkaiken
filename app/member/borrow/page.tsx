@@ -10,9 +10,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const schema = z.object({
   studentId: z
     .string()
-    .min(9)
-    .max(9, { message: "student ID must be 9 digits" }),
-  bookId: z.string().min(1, { message: "select a book" }),
+    .min(9, { message: "学籍番号を9桁で入力" })
+    .max(9, { message: "学籍番号を9桁で入力" }),
+  bookId: z.string().min(1, { message: "本を選択してください" }),
 });
 
 type FormData = z.infer<typeof schema>;
