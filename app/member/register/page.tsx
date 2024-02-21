@@ -9,10 +9,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const schema =  z.object({
   studentId : z.string().min(9).max(9),
   name: z.string(),
-  email:z.string().email(),
+  email:z.string().email().endsWith('@jindai.jp', {message : " @jindai.jp の形にしてください"}),
   gakubu:z.string(),
   gakka:z.string(),
-  phoneNum:z.string(),
+  phoneNum:z.string().min(11).max(11),
   password : z.string().min(5)
 }) 
 
@@ -24,8 +24,6 @@ export default function Page() {
     handleSubmit,
     formState : {errors} 
   } = useForm<FormData>({resolver : zodResolver(schema)})
-
-  const [formData , setFormData] = useState<FormData>()
 
   const onSubmit = async (theData : FormData) => {
     const response = await fetch("/api/registerMember", {
@@ -58,6 +56,7 @@ export default function Page() {
             type="text"
             className="input input-bordered w-full max-w-xs"
           />
+          {errors.studentId && <p className="text-red-600">{errors.studentId.message}</p> }
         </div>
         <div className="py-2">
           <label htmlFor="name">名前</label>
@@ -69,6 +68,7 @@ export default function Page() {
             type="text"
             className="input input-bordered w-full max-w-xs"
           />
+          {errors.name && <p className="text-red-600">{errors.name.message}</p> }
         </div>
         <div className="py-2">
           <label htmlFor="email">神大メール</label>
@@ -80,6 +80,7 @@ export default function Page() {
             placeholder="a112233445gx@jindai.jpの形"
             className="input input-bordered w-full max-w-xs"
           />
+          {errors.email && <p className="text-red-600">{errors.email.message}</p> }
         </div>
         <div className="py-2">
           <label htmlFor="gakubu">学部</label>
@@ -92,6 +93,7 @@ export default function Page() {
             placeholder="〇〇学部"
             className="input input-bordered w-full max-w-xs"
           />
+          {errors.gakubu && <p className="text-red-600">{errors.gakubu.message}</p> }
         </div>
         <div className="py-2">
           <label htmlFor="gakka">学科</label>
@@ -104,6 +106,7 @@ export default function Page() {
             placeholder="〇〇学科"
             className="input input-bordered w-full max-w-xs"
           />
+          {errors.gakka && <p className="text-red-600">{errors.gakka.message}</p> }
         </div>
         <div className="py-2">
           <label htmlFor="phoneNum">電話番号</label>
@@ -115,6 +118,9 @@ export default function Page() {
             placeholder="080-xxxx-xxxxの形"
             className="input input-bordered w-full max-w-xs"
           />
+          {errors.phoneNum && (
+            <p className="text-red-600">{errors.phoneNum.message}</p>
+          )}
         </div>
         <div className="py-2">
           <label htmlFor="password">パスワード</label>
@@ -125,6 +131,7 @@ export default function Page() {
             name="password"
             className="input input-bordered w-full max-w-xs"
           />
+          {errors.password && <p className="text-red-600">{errors.password.message}</p> }
         </div>
         <div className="py-4 grid grid-cols-2 gap-2">
           <button type="reset" className="btn">
