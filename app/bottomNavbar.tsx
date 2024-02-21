@@ -65,7 +65,7 @@ const BottomNavbar = () => {
             <span className="btm-nav-label">本の管理</span>
           </a>
           <a
-            href="/admin/access-history?tab=admin"
+            href="/admin/accessLogs?tab=admin"
             className={clsx("text-gray-500", {
               active: pathname === "/admin/access-history",
             })}
