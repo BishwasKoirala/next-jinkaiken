@@ -16,6 +16,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const History = () => {
+  const [studentIdInput, setStudentIdInput] = useState<string>("");
+  const [loadHistory, setLoadHistory] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -23,8 +25,6 @@ const History = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-  const [studentIdInput, setStudentIdInput] = useState<string>("");
-  const [loadHistory, setLoadHistory] = useState<boolean>(false);
 
   const onSubmit = (FormData: FieldValues) => {
     setStudentIdInput(FormData.studentId);
@@ -52,7 +52,12 @@ const History = () => {
           Load
         </button>
       </form>
-      <GetHistory studentId={studentIdInput} />
+      {
+        loadHistory && (
+          <GetHistory studentId={studentIdInput} />
+        )
+      }
+      
     </div>
   );
 };

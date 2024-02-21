@@ -72,7 +72,7 @@ const RentReturnForm = () => {
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
       {theBurrowedBook && (
-        <div className=" justify-center alert my-2 text-gray-600 text-lg bg-green-200">
+        <div className=" alert my-2 text-gray-600 text-lg bg-green-200">
           <div className="text-blue-600">本を借りました</div>
           <div className="text-black">{theBurrowedBook.title}</div>
         </div>

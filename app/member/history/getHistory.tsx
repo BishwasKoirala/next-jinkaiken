@@ -37,9 +37,6 @@ const GetHistory = ({ studentId }: Props) => {
     // fetch it in sync to studentId props everytime it changes
   }, [studentId]);
 
-  if (history.length === 0) {
-    return <div className="text-black alert bg-green-300">No History</div>
-  }
 
 
 
@@ -71,6 +68,9 @@ const GetHistory = ({ studentId }: Props) => {
           ))}
         </tbody>
       </table>
+      { history.length === 0 && (
+        <div className="alert bg-green-600 text-black">NO history</div>
+      ) }
     </div>
   );
 };
