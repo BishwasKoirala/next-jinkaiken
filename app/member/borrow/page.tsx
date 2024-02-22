@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
 import { LoadBooks } from "./loadBooks";
 import { z } from "zod";
@@ -29,7 +29,12 @@ const RentReturnForm = () => {
     null
   );
   // loads for select options booknames
-  const books = LoadBooks();
+  const allBooks = LoadBooks();
+  const [availableBooks , setAvailableBooks] = useState<{id : string ,title : string}[]>([]) 
+
+  useEffect(() => {
+    setAvailableBooks(allBooks)
+  },[allBooks])
 
   // const handleChange = (
   //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -48,15 +53,16 @@ const RentReturnForm = () => {
     if (response.ok) {
       console.log("registration Success !!!", data);
       setRegistrationData(data);
+      //removed the burrowed one from availableBooks
+      setAvailableBooks(availableBooks.filter(book => book.id !== formData.bookId))
     } else {
       console.log("Failed registration !!!", data);
     }
   };
-  console.log(registrationData);
 
   // load options to render as select book to rent
   const options: JSX.Element[] = [];
-  books.forEach((book) =>
+  availableBooks.forEach((book) =>
     options.push(
       <option className="w-2" key={book.id} value={book.id}>
         {book.title}
@@ -65,7 +71,7 @@ const RentReturnForm = () => {
   );
 
   const theBurrowedBook = registrationData
-    ? books.find((book) => book.id === registrationData.bookId)
+    ? allBooks.find((book) => book.id === registrationData.bookId)
     : null;
 
   return (
