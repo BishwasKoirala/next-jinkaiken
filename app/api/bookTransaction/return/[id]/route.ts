@@ -22,7 +22,15 @@ export async function PUT(request : NextRequest , {params} : {params : {id : str
     }
   })
 
-  return NextResponse.json(updatedRecord)
 
+  // make book rentable
+  const updateBookStats = await prisma.storeBooks.update({
+    where : {id : record.bookId},
+    data : {
+      rentable : true
+    }
+  })
+
+  return (NextResponse.json(updatedRecord) , NextResponse.json(updateBookStats))
   
 }

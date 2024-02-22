@@ -32,12 +32,20 @@ export async function POST(request : NextRequest) {
       bookId: body.bookId,
       burrowed_at: new Date(nowjpDate)
     }
-  });  
+  });
+  
+  const bookStateUpdate = await prisma.storeBooks.update({
+    where : { id : body.bookId },
+    data : {
+      rentable : false
+    }
+  })
 
   return NextResponse.json({
     studentId : record.studentId,
     bookId:record.bookId,
-    burrowed_at: record.burrowed_at
+    burrowed_at: record.burrowed_at,
+    rentableStateUpdate : bookStateUpdate.rentable
    });
 }
 
