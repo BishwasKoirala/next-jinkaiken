@@ -1,9 +1,9 @@
 "use client";
-import React, { FormEvent, useRef, useState } from "react";
-import GetHistory from "./getHistory";
+import React, { useState } from "react";
+import Table from "./table";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
 import { z } from "zod";
-import { FieldValues, FormState, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
@@ -52,12 +52,7 @@ const History = () => {
           Load
         </button>
       </form>
-      {
-        loadHistory && (
-          <GetHistory studentId={studentIdInput} />
-        )
-      }
-      
+      {loadHistory && <Table studentId={studentIdInput} />}
     </div>
   );
 };

@@ -18,7 +18,7 @@ interface Props {
   studentId: string;
 }
 
-const GetHistory = ({ studentId }: Props) => {
+const Table = ({ studentId }: Props) => {
   const { data: history } = useQuery<TransactionHistory[]>({
     queryKey: ["transactions", studentId],
     queryFn: () => fetchTransactions(studentId),
@@ -60,4 +60,4 @@ const GetHistory = ({ studentId }: Props) => {
   );
 };
 
-export default GetHistory;
+export default Table;
