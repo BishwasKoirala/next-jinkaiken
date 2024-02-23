@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { getBorrowedBooks, returnBook } from "@/app/api-client/member/books";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface Books {
   id: number;
@@ -15,47 +16,40 @@ interface Props {
   studentId: string;
 }
 
-const LoadBurrows = ({ studentId }: Props) => {
-  const [books, setBooks] = useState<Books[]>([]);
+const Table = ({ studentId }: Props) => {
+  const { data: borrowedBooks, refetch: refetchBorrowedBooks } = useQuery<
+    Books[]
+  >({
+    queryKey: ["borrowed-books", studentId],
+    queryFn: () => getBorrowedBooks(studentId),
+  });
 
-  // fetch burrowing book and set it
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const response = await fetch(
-        `/api/bookTransaction/loadBurrows/${studentId}`
-      );
-      const data = await response.json();
-      setBooks(data);
-      console.log("data", data);
-    };
-    if (studentId) {
-      fetchBooks();
-    }
-  }, [studentId]);
+  const {
+    mutate: returnBookMutation,
+    isSuccess: isReturnSuccess,
+    isError: isReturnError,
+  } = useMutation({
+    mutationFn: returnBook,
+  });
 
   const handleReturn = async (id: number) => {
-    const stringId = id.toString();
+    const bookId = id.toString();
     // put req to return
     // sets {returned : true} in BookRecords
-    const response = await fetch(`/api/bookTransaction/return/${stringId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    returnBookMutation(bookId);
 
-    if (!response.ok) {
+    if (isReturnSuccess) {
+      refetchBorrowedBooks();
+    }
+
+    if (isReturnError) {
       alert("error");
-    } else {
-      const updatedBooks = books.map((book) =>
-        book.id === id ? { ...book, returned: "✔" } : book
-      );
-      setBooks(updatedBooks);
     }
   };
-  if (books.length === 0)
-    return <div className="alert bg-green-500 text-black ">No Burrowing Books</div>;
+  if (!borrowedBooks || borrowedBooks.length === 0)
+    return (
+      <div className="alert bg-green-500 text-black ">No Borrowed Books</div>
+    );
 
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg table table-zebra-zebra overflow-x-auto">
@@ -72,7 +66,7 @@ const LoadBurrows = ({ studentId }: Props) => {
           </tr>
         </thead>
         <tbody className="table-auto table-row-group">
-          {books.map((book) => (
+          {borrowedBooks.map((book) => (
             <tr key={book.id}>
               <td>{book.id}</td>
               {/* <td>{book.studentId}</td> */}
@@ -92,7 +86,7 @@ const LoadBurrows = ({ studentId }: Props) => {
             </tr>
           ))}
         </tbody>
-        {books.length === 0 && (
+        {(!borrowedBooks || borrowedBooks.length === 0) && (
           <div className="alert bg-red-300">No Books to Return</div>
         )}
       </table>
@@ -100,4 +94,4 @@ const LoadBurrows = ({ studentId }: Props) => {
   );
 };
 
-export default LoadBurrows;
+export default Table;
