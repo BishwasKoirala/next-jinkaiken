@@ -6,7 +6,7 @@ import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { borrowBook, fetchBooks } from "@/app/api-client/member/books";
+import { borrowBook, getAvailableBooks } from "@/app/api-client/member/books";
 import { Book } from "@/app/types/book";
 
 const schema = z.object({
@@ -31,7 +31,7 @@ const RentReturnForm = () => {
     Book[]
   >({
     queryKey: ["books"],
-    queryFn: () => fetchBooks(),
+    queryFn: () => getAvailableBooks(),
   });
 
   // POST方法。POSTはここで初期化

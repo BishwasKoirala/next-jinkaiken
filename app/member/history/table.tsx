@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchTransactions } from "@/app/api-client/member/books";
+import { getTransactions } from "@/app/api-client/member/books";
 import { useQuery } from "@tanstack/react-query";
 
 interface TransactionHistory {
@@ -21,7 +21,7 @@ interface Props {
 const Table = ({ studentId }: Props) => {
   const { data: history } = useQuery<TransactionHistory[]>({
     queryKey: ["transactions", studentId],
-    queryFn: () => fetchTransactions(studentId),
+    queryFn: () => getTransactions(studentId),
   });
 
   return (

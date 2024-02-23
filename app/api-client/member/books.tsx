@@ -1,6 +1,6 @@
 import { FieldValues } from "react-hook-form";
 
-export const fetchBooks = async () => {
+export const getAvailableBooks = async () => {
   const response = await fetch("/api/dbBooks");
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
@@ -8,7 +8,7 @@ export const fetchBooks = async () => {
   return response.json();
 };
 
-export const fetchTransactions = async (studentId: string) => {
+export const getTransactions = async (studentId: string) => {
   const response = await fetch(`/api/bookTransaction/userHistory/${studentId}`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
