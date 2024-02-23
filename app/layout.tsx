@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBar from "./navbar";
 import AuthProvider from "./auth/provider";
 import BottomNavbar from "./bottomNavbar";
+import ReactQueryProvider from "./utils/providers/reactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +24,11 @@ export default function RootLayout({
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <body className={inter.className}>
         <AuthProvider>
-          <NavBar />
-          {children}
-          <BottomNavbar />
+          <ReactQueryProvider>
+            <NavBar />
+            {children}
+            <BottomNavbar />
+          </ReactQueryProvider>
         </AuthProvider>
       </body>
     </html>
