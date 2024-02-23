@@ -30,31 +30,24 @@ const RentReturnForm = () => {
   const { data: availableBooks, refetch: refetchAvailableBooks } = useQuery<
     Book[]
   >({
-    queryKey: ["books"],
+    queryKey: ["available-books"],
     queryFn: () => getAvailableBooks(),
   });
 
   // POST方法。POSTはここで初期化
-  const {
-    mutate: borrowBookMutation,
-    data: borrowedBook,
-    isSuccess: isBorrowSuccess,
-    isError: isBorrowError,
-  } = useMutation({
+  const { mutate: borrowBookMutation, data: borrowedBook } = useMutation({
     mutationFn: borrowBook,
+    onSuccess: (data) => {
+      console.log("registration Success !!!", data);
+      refetchAvailableBooks();
+    },
+    onError: (error) => {
+      console.log("Failed registration !!!", error);
+    },
   });
 
   const onSubmit = async (formData: FieldValues) => {
     borrowBookMutation(formData); // POSTをここで実行
-
-    if (isBorrowSuccess) {
-      console.log("registration Success !!!", borrowedBook);
-      refetchAvailableBooks();
-    }
-
-    if (isBorrowError) {
-      console.log("Failed registration !!!", borrowedBook);
-    }
   };
 
   // availableBooksが変わるたびに再描画
