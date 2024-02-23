@@ -1,6 +1,7 @@
 "use client";
 import { getBorrowedBooks, returnBook } from "@/app/api-client/member/books";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { FaSync, FaSyncAlt } from "react-icons/fa";
 
 interface Books {
   id: number;
@@ -17,9 +18,12 @@ interface Props {
 }
 
 const Table = ({ studentId }: Props) => {
-  const { data: borrowedBooks, refetch: refetchBorrowedBooks } = useQuery<
-    Books[]
-  >({
+  const {
+    data: borrowedBooks,
+    refetch: refetchBorrowedBooks,
+    isSuccess,
+    isLoading,
+  } = useQuery<Books[]>({
     queryKey: ["borrowed-books", studentId],
     queryFn: () => getBorrowedBooks(studentId),
   });
@@ -77,7 +81,8 @@ const Table = ({ studentId }: Props) => {
             ))}
         </tbody>
       </table>
-      {(!borrowedBooks || borrowedBooks.length === 0) && (
+      {isLoading && <FaSyncAlt className="animate-spin m-3" size={26} />}
+      {isSuccess && (!borrowedBooks || borrowedBooks.length === 0) && (
         <div className="alert bg-red-300">No Books to Return</div>
       )}
     </div>
