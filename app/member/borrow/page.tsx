@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
@@ -57,6 +57,18 @@ const RentReturnForm = () => {
     }
   };
 
+  // availableBooksが変わるたびに再描画
+  const options = useMemo(() => {
+    return (
+      availableBooks &&
+      availableBooks.map((book) => (
+        <option className="w-2" key={book.id} value={book.id}>
+          {book.title}
+        </option>
+      ))
+    );
+  }, [availableBooks]);
+
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
@@ -91,14 +103,7 @@ const RentReturnForm = () => {
             className="select select-bordered w-full max-w-xs align-middle"
           >
             <option value="">本を選択</option>
-            <>
-              {availableBooks &&
-                availableBooks.forEach((book) => (
-                  <option className="w-2" key={book.id} value={book.id}>
-                    {book.title}
-                  </option>
-                ))}
-            </>
+            <>{availableBooks ? options : []}</>
           </select>
           {errors.bookId && (
             <p className="text-red-500">{errors.bookId.message}</p>
