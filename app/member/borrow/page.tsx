@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useMemo } from "react";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
-import { LoadBooks } from "./loadBooks";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { borrowBook, getAvailableBooks } from "@/app/api-client/member/books";
+import { Book } from "@/app/types/book";
 
 const schema = z.object({
   studentId: z
@@ -21,66 +23,53 @@ const RentReturnForm = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const [registrationData, setRegistrationData] = useState<FormData | null>(
-    null
-  );
-  // loads for select options booknames
-  const allBooks = LoadBooks();
-  const [availableBooks , setAvailableBooks] = useState<{id : string ,title : string}[]>([]) 
+  // GET方法。GETはここですぐに実行
+  const { data: availableBooks, refetch: refetchAvailableBooks } = useQuery<
+    Book[]
+  >({
+    queryKey: ["available-books"],
+    queryFn: () => getAvailableBooks(),
+  });
 
-  useEffect(() => {
-    setAvailableBooks(allBooks)
-  },[allBooks])
-
-  // const handleChange = (
-  //   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  // ) => {
-  //   setFormData({ ...formdata, [e.target.name]: e.target.value });
-  // };
+  // POST方法。POSTはここで初期化
+  const { mutate: borrowBookMutation, data: borrowedBook } = useMutation({
+    mutationFn: borrowBook,
+    onSuccess: (data) => {
+      console.log("registration Success !!!", data);
+      refetchAvailableBooks();
+    },
+    onError: (error) => {
+      console.log("Failed registration !!!", error);
+    },
+  });
 
   const onSubmit = async (formData: FieldValues) => {
-    const response = await fetch("/api/bookTransaction/burrow/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      console.log("registration Success !!!", data);
-      setRegistrationData(data);
-      //removed the burrowed one from availableBooks
-      setAvailableBooks(availableBooks.filter(book => book.id !== formData.bookId))
-    } else {
-      console.log("Failed registration !!!", data);
-    }
+    borrowBookMutation(formData); // POSTをここで実行
   };
 
-  // load options to render as select book to rent
-  const options: JSX.Element[] = [];
-  availableBooks.forEach((book) =>
-    options.push(
-      <option className="w-2" key={book.id} value={book.id}>
-        {book.title}
-      </option>
-    )
-  );
-
-  const theBurrowedBook = registrationData
-    ? allBooks.find((book) => book.id === registrationData.bookId)
-    : null;
+  // availableBooksが変わるたびに再描画
+  const options = useMemo(() => {
+    return (
+      availableBooks &&
+      availableBooks.map((book) => (
+        <option className="w-2" key={book.id} value={book.id}>
+          {book.title}
+        </option>
+      ))
+    );
+  }, [availableBooks]);
 
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
-      {theBurrowedBook && (
+      {borrowedBook && (
         <div className=" alert my-2 text-gray-600 text-lg bg-green-200">
           <div className="text-blue-600">本を借りました</div>
-          <div className="text-black">{theBurrowedBook.title}</div>
+          <div className="text-black">{borrowedBook.title}</div>
+          {/* FIXME: APIで本タイトル返してね */}
         </div>
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,7 +96,7 @@ const RentReturnForm = () => {
             className="select select-bordered w-full max-w-xs align-middle"
           >
             <option value="">本を選択</option>
-            {options}
+            <>{availableBooks ? options : []}</>
           </select>
           {errors.bookId && (
             <p className="text-red-500">{errors.bookId.message}</p>

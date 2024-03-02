@@ -1,8 +1,8 @@
 "use client";
 import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
-import LoadBurrows from "./loadBurrows";
-import { FormEvent, useRef, useState } from "react";
-import { string, z } from "zod";
+import Table from "./table";
+import { useState } from "react";
+import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // get the rented books of the student from StudentId
@@ -12,7 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // press button and do the returnwork
 
 const schema = z.object({
-  studentId: z.string()
+  studentId: z
+    .string()
     .min(9, { message: "学籍番号を9桁で入力" })
     .max(9, { message: "学籍番号を9桁で入力" }),
 });
@@ -20,18 +21,21 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Return = () => {
-  const { register, handleSubmit, formState : {errors} } = useForm<FormData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
   const [loadBooks, setLoadBooks] = useState<boolean>(false);
-  const [studentId , setStudentId] = useState<string>('')
+  const [studentId, setStudentId] = useState<string>("");
 
   const onSubmit = (formData: FieldValues) => {
-      setStudentId(formData.studentId) 
-      setLoadBooks(true);
-    }
-  
+    setStudentId(formData.studentId);
+    setLoadBooks(true);
+  };
 
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
@@ -45,17 +49,17 @@ const Return = () => {
           <p className="text-red-500">{errors.studentId.message}</p>
         )}
         <input
-          {...register('studentId')}
+          {...register("studentId")}
           className="input input-bordered w-full max-w-xs"
           type="text"
         />
-        
+
         <button type="submit" className="btn bg-blue-400 m-3">
           Load
         </button>
       </form>
 
-      {loadBooks && <LoadBurrows studentId={studentId} />}
+      {loadBooks && <Table studentId={studentId} />}
     </div>
   );
 };
