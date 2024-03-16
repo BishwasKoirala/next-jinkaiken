@@ -4,7 +4,7 @@ import { z } from "zod";
 import bcrypt from 'bcrypt'
 
 // api components inport
-import  jpDate  from "../../apiComponents/jpDate";
+import  jpDate  from "@/app/api/components/jpDate";
 
 
 // studentId and bookId is enough to burrow
