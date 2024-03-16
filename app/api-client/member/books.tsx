@@ -39,7 +39,7 @@ export const borrowBook = async (formData: FieldValues) => {
 };
 
 export const returnBook = async (bookId: string) => {
-  const response = await fetch(`/api/bookTransaction/return/${bookId}`, {
+  const response = await fetch(`/api/v2/books/transaction/return/${bookId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
   });
