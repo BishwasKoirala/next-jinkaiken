@@ -1,7 +1,7 @@
 import { FieldValues } from "react-hook-form";
 
 export const getAvailableBooks = async () => {
-  const response = await fetch("/api/dbBooks");
+  const response = await fetch("/api/v2/books/available");
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -9,7 +9,7 @@ export const getAvailableBooks = async () => {
 };
 
 export const getBorrowedBooks = async (studentId: string) => {
-  const response = await fetch(`/api/bookTransaction/loadBurrows/${studentId}`);
+  const response = await fetch(`/api/v2/users/${studentId}/borrows`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -17,7 +17,7 @@ export const getBorrowedBooks = async (studentId: string) => {
 };
 
 export const getTransactions = async (studentId: string) => {
-  const response = await fetch(`/api/bookTransaction/userHistory/${studentId}`);
+  const response = await fetch(`/api/v2/users/${studentId}/transactions`);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -25,7 +25,7 @@ export const getTransactions = async (studentId: string) => {
 };
 
 export const borrowBook = async (formData: FieldValues) => {
-  const response = await fetch("/api/bookTransaction/burrow/", {
+  const response = await fetch("/api/v2/books/transaction/burrow/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(formData),

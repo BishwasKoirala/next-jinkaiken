@@ -22,7 +22,7 @@ const Books = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/registerBook", {
+      const response = await fetch("/api/v2/books/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

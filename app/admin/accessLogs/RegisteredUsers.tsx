@@ -17,7 +17,7 @@ const RegisteredUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await fetch(
-        "/api/admin/accessHistory/registeredUsers"
+        "/api/v2/users"
       );
       const data = await response.json();
 

@@ -26,7 +26,7 @@ export default function Page() {
   } = useForm<FormData>({resolver : zodResolver(schema)})
 
   const onSubmit = async (theData : FormData) => {
-    const response = await fetch("/api/registerMember", {
+    const response = await fetch("/api/v2/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(theData),
