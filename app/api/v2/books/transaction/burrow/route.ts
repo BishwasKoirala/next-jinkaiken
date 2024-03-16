@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 
 // api components inport
 import  jpDate  from "@/app/api/components/jpDate";
+import { title } from "process";
 
 
 // studentId and bookId is enough to burrow
@@ -40,10 +41,19 @@ export async function POST(request : NextRequest) {
       rentable : false
     }
   })
+  // return the book name in response
+  const bookTitle = await prisma.storeBooks.findUnique({
+    where : {id : record.bookId},
+    select : {
+      id : true,
+      title : true
+    }
+  })
 
   return NextResponse.json({
     studentId : record.studentId,
     bookId:record.bookId,
+    title : bookTitle?.title,
     burrowed_at: record.burrowed_at,
     rentableStateUpdate : bookStateUpdate.rentable
    });
