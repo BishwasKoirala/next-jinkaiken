@@ -25,8 +25,7 @@ export async function POST(request : NextRequest) {
 
   // make date of japan
   const nowjpDate = jpDate()
-  
-    
+
   const record = await prisma.bookRecords.create({
     data: {
       studentId: body.studentId,
@@ -34,6 +33,16 @@ export async function POST(request : NextRequest) {
       burrowed_at: new Date(nowjpDate)
     }
   });
+  
+  const isRentable = await prisma.storeBooks.findUnique({
+    where : {id : record.bookId},
+    select : {
+      rentable : true //means select this field
+    }
+  })
+
+  if (!isRentable?.rentable) 
+    return NextResponse.json('book is rented by someone' , {status : 400})
   
   const bookStateUpdate = await prisma.storeBooks.update({
     where : { id : body.bookId },
