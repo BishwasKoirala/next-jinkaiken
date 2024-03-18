@@ -23,6 +23,19 @@ export async function POST(request : NextRequest) {
   if (!validation.success)
     return NextResponse.json(validation.error.errors , {status:400});
 
+
+  const isRentable = await prisma.storeBooks.findUnique({
+    where : {id : body.bookId},
+    select : {
+      rentable : true //means select this field
+    }
+  })
+
+  if (!isRentable || isRentable.rentable === false) 
+    return NextResponse.json({error : 'book is rented by someone'} , {status : 400})
+  // Do note fetchc if the book is not rentable
+  
+
   // make date of japan
   const nowjpDate = jpDate()
 
@@ -34,15 +47,6 @@ export async function POST(request : NextRequest) {
     }
   });
   
-  const isRentable = await prisma.storeBooks.findUnique({
-    where : {id : record.bookId},
-    select : {
-      rentable : true //means select this field
-    }
-  })
-
-  if (!isRentable?.rentable) 
-    return NextResponse.json('book is rented by someone' , {status : 400})
   
   const bookStateUpdate = await prisma.storeBooks.update({
     where : { id : body.bookId },
