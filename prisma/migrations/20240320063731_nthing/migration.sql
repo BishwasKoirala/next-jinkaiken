@@ -8,7 +8,7 @@ CREATE TABLE "User" (
     "phoneNum" TEXT NOT NULL,
     "password" TEXT,
     "isAdmin" BOOLEAN NOT NULL DEFAULT false,
-    "registeredAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "registered_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("studentId")
 );
@@ -21,7 +21,7 @@ CREATE TABLE "StoreBooks" (
     "title" TEXT NOT NULL,
     "authors" TEXT NOT NULL,
     "rentable" BOOLEAN NOT NULL DEFAULT true,
-    "registeredAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "registered_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "StoreBooks_pkey" PRIMARY KEY ("id")
 );
@@ -31,10 +31,9 @@ CREATE TABLE "BookRecords" (
     "id" SERIAL NOT NULL,
     "studentId" TEXT NOT NULL,
     "bookId" TEXT NOT NULL,
-    "rentStatus" TEXT,
-    "burrowDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "burrowed_at" TIMESTAMP(3) NOT NULL,
     "returned" BOOLEAN NOT NULL DEFAULT false,
-    "returnedDate" TIMESTAMP(3) NOT NULL,
+    "returned_at" TIMESTAMP(3),
 
     CONSTRAINT "BookRecords_pkey" PRIMARY KEY ("id")
 );
