@@ -1,6 +1,9 @@
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 //returns registered Books in db with recent order
+
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   const response = await prisma?.storeBooks.findMany({
     select: {
