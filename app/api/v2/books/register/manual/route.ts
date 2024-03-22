@@ -4,7 +4,7 @@ import prisma from "@/prisma/client";
 import { randomStringId } from "@/app/api/components/utils";
 
 
-const schema = z.object({
+export const schema = z.object({
   id : z.string().optional(),
   title : z.string(),
   authors : z.string(),
@@ -24,7 +24,7 @@ export async function POST(request : NextRequest) {
     data : {
       id : randomString,
       title : body.title,
-      authors : body.title
+      authors : body.authors
     }
   })
 
