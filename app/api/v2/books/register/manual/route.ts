@@ -4,7 +4,7 @@ import prisma from "@/prisma/client";
 import { randomStringId } from "@/app/api/components/utils";
 
 
-export const schema = z.object({
+ const schema = z.object({
   id : z.string().optional(),
   title : z.string(),
   authors : z.string(),

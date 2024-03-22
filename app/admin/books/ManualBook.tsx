@@ -1,38 +1,47 @@
 import React, { FormEvent, useState } from "react";
-import { schema } from "@/app/api/v2/books/register/manual/route";
 import { z } from "zod";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-type FormData = z.infer<typeof schema>;
+const schema = z.object({
+  title : z.string(),
+  authors : z.string()
+})
 
+type FormData = z.infer<typeof schema>
 const ManualBookForm = () => {
   const [submitResponse , setSubmitResponse] = useState<FormData>()
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors , isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   
   
   const onSubmit : SubmitHandler<FormData> = async (data) => {
-    console.log(data)
-    const response = await fetch("/api/v2/books/register/manual",{
-      method : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
+    if (data.authors!== '' && data.title!==""){
+      const response = await fetch("/api/v2/books/register/manual",{
+        method : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      const resData = await response.json()
+      if (response.ok){
+        console.log('success',resData)
+        setSubmitResponse(resData)
+        reset()
+      } else {
+        console.log('failed')
+        setSubmitResponse({authors : '!!!error!!!' , title : '!!!error!!!'})
+      }
 
-    const resData = await response.json()
-    if (response.ok){
-      console.log('success',resData)
-      setSubmitResponse(resData)
-    } else {
-      console.log('failed')
-      setSubmitResponse({authors : '!!!error!!!' , title : '!!!error!!!'})
       
+    } else{
+      setSubmitResponse({authors : "error" , title : "error"})
     }
+
   }
 
   return (
