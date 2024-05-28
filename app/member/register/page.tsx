@@ -5,6 +5,7 @@ import React, { FormEvent, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Success from "./Success";
 
 const schema =  z.object({
   studentId : z.string().min(9 , {message : "9桁で入力してください"}).max(9,{message : "9桁で入力してください"}),
@@ -25,6 +26,9 @@ export default function Page() {
     formState : {errors} 
   } = useForm<FormData>({resolver : zodResolver(schema)})
 
+  const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   const onSubmit = async (theData : FormData) => {
     const response = await fetch("/api/v2/users/register", {
       method: "POST",
@@ -35,14 +39,23 @@ export default function Page() {
     const data = await response.json();
     if (response.ok) {
       console.log("Registration successful", data);
-      alert("Registration successful");
+      // alert("Registration successful");
+      setSubmittedData(data)
     } else {
       console.log("registration failed", data);
-      alert("registration failed");
+      setError("error")
     }
   };
-  return (
-    <div className="grid place-items-center pb-16 text-gray-500 text-lg">
+
+// // rendering logics
+  if (submittedData) {
+    return <Success submitData={submittedData} />;
+  } else {
+    
+    
+    
+    return (
+      <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       {/* seted placeholder to textmiddle in global cdd */}
       <form 
       onSubmit={handleSubmit(onSubmit)}
@@ -51,10 +64,10 @@ export default function Page() {
           <label htmlFor="studentId">学籍番号</label>
           <input
           {...register('studentId')}
-            id="studentId"
-            name="studentId"
-            type="text"
-            className="input input-bordered w-full max-w-xs"
+          id="studentId"
+          name="studentId"
+          type="text"
+          className="input input-bordered w-full max-w-xs"
           />
           {errors.studentId && <p className="text-red-600">{errors.studentId.message}</p> }
         </div>
@@ -63,10 +76,10 @@ export default function Page() {
           <br />
           <input
           {...register('name')}
-            id="name"
-            name="name"
-            type="text"
-            className="input input-bordered w-full max-w-xs"
+          id="name"
+          name="name"
+          type="text"
+          className="input input-bordered w-full max-w-xs"
           />
           {errors.name && <p className="text-red-600">{errors.name.message}</p> }
         </div>
@@ -74,11 +87,11 @@ export default function Page() {
           <label htmlFor="email">神大メール</label>
           <input
           {...register('email')}
-            id="email"
-            name="email"
-            type="email"
-            placeholder="a112233445gx@jindai.jpの形"
-            className="input input-bordered w-full max-w-xs"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="a112233445gx@jindai.jpの形"
+          className="input input-bordered w-full max-w-xs"
           />
           {errors.email && <p className="text-red-600">{errors.email.message}</p> }
         </div>
@@ -87,11 +100,11 @@ export default function Page() {
           <br />
           <input
           {...register('gakubu')}
-            id="gakubu"
-            name="gakubu"
-            type="text"
-            placeholder="〇〇学部"
-            className="input input-bordered w-full max-w-xs"
+          id="gakubu"
+          name="gakubu"
+          type="text"
+          placeholder="〇〇学部"
+          className="input input-bordered w-full max-w-xs"
           />
           {errors.gakubu && <p className="text-red-600">{errors.gakubu.message}</p> }
         </div>
@@ -100,11 +113,11 @@ export default function Page() {
           <br />
           <input
           {...register('gakka')}
-            id="gakka"
-            name="gakka"
-            type="text"
-            placeholder="〇〇学科"
-            className="input input-bordered w-full max-w-xs"
+          id="gakka"
+          name="gakka"
+          type="text"
+          placeholder="〇〇学科"
+          className="input input-bordered w-full max-w-xs"
           />
           {errors.gakka && <p className="text-red-600">{errors.gakka.message}</p> }
         </div>
@@ -112,11 +125,11 @@ export default function Page() {
           <label htmlFor="phoneNum">電話番号</label>
           <input
           {...register('phoneNum')}
-            id="phoneNum"
-            name="phoneNum"
-            type="text"
-            placeholder="080-xxxx-xxxxの形"
-            className="input input-bordered w-full max-w-xs"
+          id="phoneNum"
+          name="phoneNum"
+          type="text"
+          placeholder="080-xxxx-xxxxの形"
+          className="input input-bordered w-full max-w-xs"
           />
           {errors.phoneNum && (
             <p className="text-red-600">{errors.phoneNum.message}</p>
@@ -126,10 +139,10 @@ export default function Page() {
           <label htmlFor="password">パスワード</label>
           <input
           {...register('password')}
-            id="password"
-            type="password"
-            name="password"
-            className="input input-bordered w-full max-w-xs"
+          id="password"
+          type="password"
+          name="password"
+          className="input input-bordered w-full max-w-xs"
           />
           {errors.password && <p className="text-red-600">{errors.password.message}</p> }
         </div>
@@ -141,7 +154,16 @@ export default function Page() {
             送信
           </button>
         </div>
+        {error && (
+          <div className="alert alert-error mt-4">
+            <div className="flex-1">
+              <label>{error}</label>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );
+}
+
 }
