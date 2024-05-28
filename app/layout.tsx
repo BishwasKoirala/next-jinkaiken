@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "神奈川大学会計学研究部",
+  authors : [] ,
   description:
     "コイララビスワスが作った、神奈川大学の会計学研究部のウェブサイト",
 };
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <ReactQueryProvider>
+            {/* reactquery provider ですべてをchildren として囲んでいる。 */}
             <NavBar />
             {children}
             <BottomNavbar />
