@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Table from "./table";
-import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import { UnderDevelopmentAlert } from "@/app/libs/components/underDevelopmentAlert";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

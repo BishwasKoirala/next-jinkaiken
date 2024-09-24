@@ -3,7 +3,7 @@ import React, { useState, FormEvent } from "react";
 
 import { FilteredData } from "../../api/googleGetBookApi/[theIsbn]/route";
 import { FaExclamationTriangle } from "react-icons/fa";
-import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import { UnderDevelopmentAlert } from "@/app/libs/components/underDevelopmentAlert";
 import ManualBookForm from "./ManualBook";
 
 interface FormData {

@@ -1,5 +1,5 @@
 "use client";
-import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import { UnderDevelopmentAlert } from "@/app/libs/components/underDevelopmentAlert";
 import Table from "./table";
 import { useState } from "react";
 import { z } from "zod";

@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import { UnderDevelopmentAlert } from "@/app/libs/components/underDevelopmentAlert";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { borrowBook, getAvailableBooks } from "@/app/api-client/member/books";
-import { Book } from "@/app/types/book";
+import { borrowBook, getAvailableBooks } from "@/app/libs/api-client/member/books";
+import { Book } from "@/app/libs/types/book";
 import { useSession } from "next-auth/react";
 
 const schema = z.object({

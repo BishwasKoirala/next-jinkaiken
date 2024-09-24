@@ -1,6 +1,6 @@
 "use client";
 
-import { getTransactions } from "@/app/api-client/member/books";
+import { getTransactions } from "@/app/libs/api-client/member/books";
 import { useQuery } from "@tanstack/react-query";
 
 interface TransactionHistory {

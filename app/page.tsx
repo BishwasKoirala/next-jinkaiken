@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { UnderDevelopmentAlert } from "./components/underDevelopmentAlert";
+import { UnderDevelopmentAlert } from "./libs/components/underDevelopmentAlert";
 import { useSession } from "next-auth/react";
 const WelcomePage = () => {
   const {data : sessionData , status : sessionStatus} = useSession();
@@ -30,7 +30,8 @@ const WelcomePage = () => {
         </>
       ) : sessionStatus === "authenticated" ? (
         <>
-          <div className="alert flex flex-auto align-middle">ようこそ{sessionData.user?.name}さん</div>
+          <div className="flex text-2xl flex-auto align-middle">ようこそ{sessionData.user?.name}さん</div>
+          <div className="flex text-2xl flex-auto align-middle">ナビゲーションバーで操作をしてください↑↓</div>
         </>
       ) : (
         <div className="loading-dots bg-black font-black flex-auto ">.........</div>
