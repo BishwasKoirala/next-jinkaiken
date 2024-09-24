@@ -36,7 +36,14 @@ const handler = NextAuth({
         if (!passwordsMatch) return null;
 
         // Ensure that studentId is returned properly
-        return { id: user.studentId, studentId: user.studentId, name: user.name };
+        return {
+          id: user.studentId,
+          studentId: user.studentId,
+          name: user.name,
+          email: user.email,
+          isAdmin : user.isAdmin
+
+        };
       },
     }),
   ],
@@ -46,21 +53,25 @@ const handler = NextAuth({
       if (user) {
         token.studentId = user.studentId; // Ensure studentId is assigned to token
         token.name = user.name;
+        token.email = user.email;
+        token.isAdmin = user.isAdmin
       }
       return token;
     },
 
     // Session callback to include studentId in the session
     async session({ session, token }) {
-      if (token?.studentId) {
+      if (token.studentId) {
         session.user.studentId = token.studentId; // Set studentId in session
         session.user.name = token.name;
+        session.user.isAdmin = token.isAdmin
+        session.user.email = token.email
       }
       return session;
     },
   },
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
 });
 
