@@ -51,10 +51,10 @@ const handler = NextAuth({
     // JWT callback to add studentId to the token
     async jwt({ token, user }) {
       if (user) {
-        token.studentId = user.studentId; // Ensure studentId is assigned to token
-        token.name = user.name;
-        token.email = user.email;
-        token.isAdmin = user.isAdmin
+        return {
+          ...token,
+          ...user
+        }
       }
       return token;
     },
@@ -62,10 +62,12 @@ const handler = NextAuth({
     // Session callback to include studentId in the session
     async session({ session, token }) {
       if (token.studentId) {
-        session.user.studentId = token.studentId; // Set studentId in session
-        session.user.name = token.name;
-        session.user.isAdmin = token.isAdmin
-        session.user.email = token.email
+        session.user = {
+          studentId : token.studentId,
+          name : token.name,
+          email : token.email,
+          isAdmin : token.isAdmin
+        }
       }
       return session;
     },
