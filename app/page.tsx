@@ -4,13 +4,13 @@ import Link from "next/link";
 import { UnderDevelopmentAlert } from "./components/underDevelopmentAlert";
 import { useSession } from "next-auth/react";
 const WelcomePage = () => {
-  const session = useSession();
-  console.log(session)
+  const {data : sessionData , status : sessionStatus} = useSession();
+  console.log(sessionData)
   return (
     <div className="grid place-items-center pb-16 text-gray-500 text-lg">
       <UnderDevelopmentAlert />
       <h1>神奈川大学会計学研究部</h1>
-      {session.status === "unauthenticated" ? (
+      {sessionStatus === "unauthenticated" ? (
         <>
           <Link
             href="/member/borrow"
@@ -28,9 +28,9 @@ const WelcomePage = () => {
             入部登録
           </Link>
         </>
-      ) : session.status === "authenticated" ? (
+      ) : sessionStatus === "authenticated" ? (
         <>
-          <div className="alert flex flex-auto align-middle">ようこそ{session.data.user?.name}さん</div>
+          <div className="alert flex flex-auto align-middle">ようこそ{sessionData.user?.name}さん</div>
         </>
       ) : (
         <div className="loading-dots bg-black font-black flex-auto ">.........</div>

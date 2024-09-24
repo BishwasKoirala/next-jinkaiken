@@ -54,7 +54,7 @@ const Table = ({ studentId }: Props) => {
         </tbody>
       </table>
       {(!history || history.length === 0) && (
-        <div className="alert bg-green-600 text-black">NO history</div>
+        <div className="alert bg-red-300 text-black">履歴がありません</div>
       )}
     </div>
   );

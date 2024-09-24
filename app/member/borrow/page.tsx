@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { borrowBook, getAvailableBooks } from "@/app/api-client/member/books";
 import { Book } from "@/app/types/book";
+import { useSession } from "next-auth/react";
 
 const schema = z.object({
   studentId: z
@@ -20,6 +21,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const RentReturnForm = () => {
+  const session = useSession()
   const {
     register,
     handleSubmit,
@@ -80,6 +82,7 @@ const RentReturnForm = () => {
             id="studentId"
             name="studentId"
             type="text"
+            defaultValue={session.data?.user.studentId}
             className="input input-bordered w-full max-w-xs"
           />
           {errors.studentId && (
