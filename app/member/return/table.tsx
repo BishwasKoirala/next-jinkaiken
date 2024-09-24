@@ -1,5 +1,5 @@
 "use client";
-import { getBorrowedBooks, returnBook } from "@/app/api-client/member/books";
+import { getBorrowedBooks, returnBook } from "@/app/libs/api-client/member/books";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FaSync, FaSyncAlt } from "react-icons/fa";
 

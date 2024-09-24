@@ -1,7 +1,7 @@
 // Use 'use client' if you're in a Next.js environment or similar that supports it
 'use client';
 import React, { useState } from "react";
-import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import { UnderDevelopmentAlert } from "@/app/libs/components/underDevelopmentAlert";
 import RegisteredBooks from "./RegisteredBooks";
 import RegisteredUsers from "./RegisteredUsers";
 import BookTransactions from "./BookTransactions";

@@ -1,10 +1,11 @@
 "use client";
-import { UnderDevelopmentAlert } from "@/app/components/underDevelopmentAlert";
+import { UnderDevelopmentAlert } from "@/app/libs/components/underDevelopmentAlert";
 import Table from "./table";
 import { useState } from "react";
 import { z } from "zod";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 // get the rented books of the student from StudentId
 
 // load the books on the screen
@@ -21,6 +22,11 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const Return = () => {
+  const [loadBooks, setLoadBooks] = useState<boolean>(false);
+  const [studentId, setStudentId] = useState<string>("");
+
+  const session = useSession()
+
   const {
     register,
     handleSubmit,
@@ -29,8 +35,6 @@ const Return = () => {
     resolver: zodResolver(schema),
   });
 
-  const [loadBooks, setLoadBooks] = useState<boolean>(false);
-  const [studentId, setStudentId] = useState<string>("");
 
   const onSubmit = (formData: FieldValues) => {
     setStudentId(formData.studentId);
@@ -51,6 +55,7 @@ const Return = () => {
         <input
           {...register("studentId")}
           className="input input-bordered w-full max-w-xs"
+          defaultValue={session.data?.user.studentId}
           type="text"
         />
 
